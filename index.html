@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>webSnowi - AI Tools Directory</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.modal { display: none; }
+.modal.active { display: flex; }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+</style>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#6366f1',secondary:'#f59e0b'},borderRadius:{'none':'0px','sm':'2px',DEFAULT:'4px','md':'8px','lg':'12px','xl':'16px','2xl':'20px','3xl':'24px','full':'9999px','button':'4px'}}}}</script>
+</head>
+<body class="bg-white min-h-screen">
+<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
+<div class="container mx-auto px-4 h-16 flex items-center justify-between">
+<a href="/" class="flex items-center gap-2">
+<span class="text-2xl font-['Pacifico'] text-primary">webSnowi</span>
+</a>
+<div class="flex-1 max-w-2xl mx-8">
+<div class="relative">
+<input type="text" placeholder="Search AI tools..." class="w-full h-10 pl-10 pr-4 rounded-full border border-gray-200 focus:outline-none focus:border-primary text-sm">
+<div class="absolute left-3 top-0 h-10 w-5 flex items-center justify-center">
+<i class="ri-search-line text-gray-400"></i>
+</div>
+</div>
+</div>
+<nav class="flex items-center gap-6">
+<a href="#" class="text-gray-600 hover:text-primary text-sm font-medium">Categories</a>
+<a href="#" class="text-gray-600 hover:text-primary text-sm font-medium">Submit Tool</a>
+<button class="px-4 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90">Sign In</button>
+</nav>
+</div>
+</header>
+<main class="pt-16">
+<section class="relative bg-gradient-to-r from-indigo-50 to-indigo-100 overflow-hidden">
+<canvas id="snow" class="absolute inset-0 pointer-events-none"></canvas>
+<div class="container mx-auto px-4 py-20">
+<div class="flex items-center">
+<div class="w-1/2">
+<h1 class="text-5xl font-bold text-gray-900 mb-6">Discover the Best AI Tools for Your Needs</h1>
+<p class="text-xl text-gray-600 mb-8">Explore our curated collection of 1000+ AI tools and find the perfect solution to enhance your workflow.</p>
+<div class="flex gap-4">
+<button class="px-6 py-3 bg-primary text-white rounded-button text-base font-medium hover:bg-primary/90">
+Explore Tools
+</button>
+<button class="px-6 py-3 bg-white text-primary rounded-button text-base font-medium border border-primary hover:bg-gray-50">
+Submit Your Tool
+</button>
+</div>
+</div>
+<div class="w-1/2 relative">
+<img src="https://public.readdy.ai/ai/img_res/941f9b7b8524cd6cdda01220d1ef9b76.jpg" class="w-full h-auto object-cover rounded-lg shadow-xl" alt="Hero Image">
+</div>
+</div>
+</div>
+</section>
+<section class="py-12 bg-white">
+<div class="container mx-auto px-4">
+<div class="flex gap-8">
+<aside class="w-64 flex-shrink-0">
+<div class="sticky top-20">
+<h3 class="text-lg font-semibold mb-4">Filters</h3>
+<div class="mb-6">
+<h4 class="text-sm font-medium mb-3">Categories</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="rounded text-primary">
+<span class="text-sm">Text Generation</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="rounded text-primary">
+<span class="text-sm">Image Generation</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="rounded text-primary">
+<span class="text-sm">Video Creation</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="rounded text-primary">
+<span class="text-sm">Code Assistant</span>
+</label>
+</div>
+</div>
+<div class="mb-6">
+<h4 class="text-sm font-medium mb-3">Price</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="rounded text-primary">
+<span class="text-sm">Free</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="rounded text-primary">
+<span class="text-sm">Freemium</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="rounded text-primary">
+<span class="text-sm">Paid</span>
+</label>
+</div>
+</div>
+<div class="mb-6">
+<h4 class="text-sm font-medium mb-3">Rating</h4>
+<div class="space-y-2">
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="rounded text-primary">
+<span class="text-sm">4+ Stars</span>
+</label>
+<label class="flex items-center gap-2 cursor-pointer">
+<input type="checkbox" class="rounded text-primary">
+<span class="text-sm">3+ Stars</span>
+</label>
+</div>
+</div>
+</div>
+</aside>
+<div class="flex-1">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold">Featured AI Tools</h2>
+<div class="relative">
+<button id="sortButton" class="flex items-center gap-2 px-4 py-2 border rounded-button text-sm hover:border-primary">
+<span>Sort by: Popular</span>
+<i class="ri-arrow-down-s-line"></i>
+</button>
+<div id="sortDropdown" class="hidden absolute top-full right-0 mt-1 w-48 bg-white border rounded-lg shadow-lg py-2">
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">Popular</a>
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">Newest</a>
+<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">Rating</a>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-6">
+<div class="bg-white rounded-lg border hover:shadow-lg transition-shadow">
+<img src="https://public.readdy.ai/ai/img_res/364ca0703457903c956e5952d4055221.jpg" class="w-full h-48 object-cover rounded-t-lg" alt="Tool thumbnail">
+<div class="p-4">
+<div class="flex items-start justify-between mb-2">
+<h3 class="text-lg font-semibold">TextCraft AI</h3>
+<span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">Free</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Advanced text generation tool powered by GPT-4, perfect for content creation and copywriting.</p>
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs">Text Generation</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg border hover:shadow-lg transition-shadow">
+<img src="https://public.readdy.ai/ai/img_res/5270dc1865bd2104727e9da0e3a00425.jpg" class="w-full h-48 object-cover rounded-t-lg" alt="Tool thumbnail">
+<div class="p-4">
+<div class="flex items-start justify-between mb-2">
+<h3 class="text-lg font-semibold">ImageGenius</h3>
+<span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs">Freemium</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Create stunning AI-generated images with advanced style control and editing capabilities.</p>
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs">Image Generation</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-lg border hover:shadow-lg transition-shadow">
+<img src="https://public.readdy.ai/ai/img_res/185ea41661f7cb3fab482579ba3946c3.jpg" class="w-full h-48 object-cover rounded-t-lg" alt="Tool thumbnail">
+<div class="p-4">
+<div class="flex items-start justify-between mb-2">
+<h3 class="text-lg font-semibold">VideoMaster AI</h3>
+<span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs">Paid</span>
+</div>
+<p class="text-gray-600 text-sm mb-4">Professional video editing and generation platform powered by artificial intelligence.</p>
+<div class="flex items-center justify-between">
+<span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs">Video Creation</span>
+<div class="flex items-center gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-8 flex justify-center">
+<button class="px-6 py-3 bg-white border border-primary text-primary rounded-button hover:bg-gray-50">
+Load More
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-16 bg-gradient-to-b from-indigo-50 to-white">
+<div class="container mx-auto px-4 text-center">
+<h2 class="text-3xl font-bold mb-4">Stay Updated with Latest AI Tools</h2>
+<p class="text-gray-600 mb-8 max-w-2xl mx-auto">Subscribe to our newsletter and get weekly updates about new AI tools, features, and exclusive offers.</p>
+<div class="flex items-center justify-center gap-4">
+<input type="email" placeholder="Enter your email" class="w-96 h-12 px-4 rounded-button border focus:outline-none focus:border-primary">
+<button class="h-12 px-8 bg-primary text-white rounded-button hover:bg-primary/90">Subscribe</button>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-gray-900 text-white py-12">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-4 gap-8 mb-8">
+<div>
+<h3 class="text-xl font-['Pacifico'] mb-4">webSnowi</h3>
+<p class="text-gray-400 text-sm">Your ultimate directory for discovering and comparing AI tools and services.</p>
+</div>
+<div>
+<h4 class="font-semibold mb-4">Categories</h4>
+<ul class="space-y-2 text-gray-400">
+<li><a href="#" class="hover:text-white">Text Generation</a></li>
+<li><a href="#" class="hover:text-white">Image Generation</a></li>
+<li><a href="#" class="hover:text-white">Video Creation</a></li>
+<li><a href="#" class="hover:text-white">Code Assistant</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold mb-4">Company</h4>
+<ul class="space-y-2 text-gray-400">
+<li><a href="#" class="hover:text-white">About Us</a></li>
+<li><a href="#" class="hover:text-white">Contact</a></li>
+<li><a href="#" class="hover:text-white">Submit Tool</a></li>
+<li><a href="#" class="hover:text-white">Advertise</a></li>
+</ul>
+</div>
+<div>
+<h4 class="font-semibold mb-4">Follow Us</h4>
+<div class="flex gap-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
+<i class="ri-twitter-x-line"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
+<i class="ri-linkedin-line"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
+<i class="ri-github-line"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="border-t border-gray-800 pt-8 flex justify-between items-center">
+<p class="text-gray-400 text-sm">© 2025 webSnowi. All rights reserved.</p>
+<div class="flex gap-6 text-sm text-gray-400">
+<a href="#" class="hover:text-white">Privacy Policy</a>
+<a href="#" class="hover:text-white">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+<script>
+const canvas = document.getElementById('snow');
+const ctx = canvas.getContext('2d');
+let width = canvas.width = window.innerWidth;
+let height = canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+  width = canvas.width = window.innerWidth;
+  height = canvas.height = window.innerHeight;
+});
+
+const particles = [];
+const properties = {
+  particleCount: 100,
+  particleRadius: 2,
+  maxSpeed: 1,
+  colors: ['#ffffff', '#f0f0f0']
+};
+
+class Particle {
+  constructor() {
+    this.x = Math.random() * width;
+    this.y = Math.random() * height;
+    this.radius = Math.random() * properties.particleRadius;
+    this.speedY = Math.random() * properties.maxSpeed + 0.5;
+    this.speedX = Math.random() * 0.5 - 0.25;
+    this.color = properties.colors[Math.floor(Math.random() * properties.colors.length)];
+  }
+
+  update() {
+    this.y += this.speedY;
+    this.x += this.speedX;
+
+    if (this.y > height) {
+      this.y = 0;
+      this.x = Math.random() * width;
+    }
+  }
+
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.fillStyle = this.color;
+    ctx.fill();
+  }
+}
+
+for (let i = 0; i < properties.particleCount; i++) {
+  particles.push(new Particle());
+}
+
+function animate() {
+  ctx.clearRect(0, 0, width, height);
+  
+  particles.forEach(particle => {
+    particle.update();
+    particle.draw();
+  });
+  
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+const sortButton = document.getElementById('sortButton');
+const sortDropdown = document.getElementById('sortDropdown');
+sortButton.addEventListener('click', () => {
+sortDropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', (e) => {
+if (!sortButton.contains(e.target)) {
+sortDropdown.classList.add('hidden');
+}
+});
+document.querySelectorAll('.ri-heart-line').forEach(heart => {
+heart.addEventListener('click', function() {
+this.classList.toggle('ri-heart-line');
+this.classList.toggle('ri-heart-fill');
+this.classList.toggle('text-red-500');
+});
+});
+</script>
+</body>
+</html>
