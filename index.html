@@ -3,357 +3,1055 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>webSnowi - AI Tools Directory</title>
+<title>AI Tools Hub - Discover the Best AI Tools</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#5B21B6',
+secondary: '#2563EB'
+},
+borderRadius: {
+'none': '0px',
+'sm': '2px',
+DEFAULT: '4px',
+'md': '8px',
+'lg': '12px',
+'xl': '16px',
+'2xl': '20px',
+'3xl': '24px',
+'full': '9999px',
+'button': '4px'
+}
+}
+}
+}
+</script>
 <style>
 :where([class^="ri-"])::before { content: "\f3c2"; }
-.modal { display: none; }
-.modal.active { display: flex; }
-input[type="number"]::-webkit-inner-spin-button,
-input[type="number"]::-webkit-outer-spin-button {
--webkit-appearance: none;
-margin: 0;
+.nav-link.active { color: #5B21B6; }
+.nav-link.active::after {
+content: '';
+position: absolute;
+bottom: -2px;
+left: 0;
+width: 100%;
+height: 2px;
+background-color: #5B21B6;
+}
+.scroll-indicator {
+animation: bounce 2s infinite;
+}
+@keyframes bounce {
+0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+40% { transform: translateY(-10px); }
+60% { transform: translateY(-5px); }
+}
+.tool-card {
+transition: transform 0.3s ease;
+}
+.tool-card:hover {
+transform: translateY(-5px);
 }
 </style>
-<script>tailwind.config={theme:{extend:{colors:{primary:'#6366f1',secondary:'#f59e0b'},borderRadius:{'none':'0px','sm':'2px',DEFAULT:'4px','md':'8px','lg':'12px','xl':'16px','2xl':'20px','3xl':'24px','full':'9999px','button':'4px'}}}}</script>
 </head>
 <body class="bg-white min-h-screen">
-<header class="fixed top-0 left-0 right-0 bg-white shadow-sm z-50">
-<div class="container mx-auto px-4 h-16 flex items-center justify-between">
-<a href="/" class="flex items-center gap-2">
-<span class="text-2xl font-['Pacifico'] text-primary">webSnowi</span>
-</a>
-<div class="flex-1 max-w-2xl mx-8">
-<div class="relative">
-<input type="text" placeholder="Search AI tools..." class="w-full h-10 pl-10 pr-4 rounded-full border border-gray-200 focus:outline-none focus:border-primary text-sm">
-<div class="absolute left-3 top-0 h-10 w-5 flex items-center justify-center">
-<i class="ri-search-line text-gray-400"></i>
-</div>
-</div>
-</div>
-<nav class="flex items-center gap-6">
-<a href="#" class="text-gray-600 hover:text-primary text-sm font-medium">Categories</a>
-<a href="#" class="text-gray-600 hover:text-primary text-sm font-medium">Submit Tool</a>
-<button class="px-4 py-2 bg-primary text-white rounded-button text-sm font-medium hover:bg-primary/90">Sign In</button>
-</nav>
-</div>
-</header>
-<main class="pt-16">
-<section class="relative bg-gradient-to-r from-indigo-50 to-indigo-100 overflow-hidden">
-<canvas id="snow" class="absolute inset-0 pointer-events-none"></canvas>
-<div class="container mx-auto px-4 py-20">
+<nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16">
 <div class="flex items-center">
-<div class="w-1/2">
-<h1 class="text-5xl font-bold text-gray-900 mb-6">Discover the Best AI Tools for Your Needs</h1>
-<p class="text-xl text-gray-600 mb-8">Explore our curated collection of 1000+ AI tools and find the perfect solution to enhance your workflow.</p>
-<div class="flex gap-4">
-<button class="px-6 py-3 bg-primary text-white rounded-button text-base font-medium hover:bg-primary/90">
-Explore Tools
-</button>
-<button class="px-6 py-3 bg-white text-primary rounded-button text-base font-medium border border-primary hover:bg-gray-50">
-Submit Your Tool
+<a href="#" class="font-['Pacifico'] text-2xl text-primary">logo</a>
+<div class="hidden md:flex items-center space-x-8 ml-10">
+<a href="#home" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">Home</a>
+<a href="#tools" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">AI Tools</a>
+<a href="#advertising" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">Advertising</a>
+<a href="#about" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">About Us</a>
+<a href="#contact" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<a href="https://readdy.ai/home/3b5bc2b9-4ae9-470b-9c4d-bb565d696381/1accbef8-184e-486e-843b-282727ab4ff7" data-readdy="true">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Sign In</button>
+</a>
+<button class="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer">
+<i class="ri-menu-line text-xl"></i>
 </button>
 </div>
 </div>
-<div class="w-1/2 relative">
-<img src="https://public.readdy.ai/ai/img_res/941f9b7b8524cd6cdda01220d1ef9b76.jpg" class="w-full h-auto object-cover rounded-lg shadow-xl" alt="Hero Image">
+</div>
+</nav>
+<main class="pt-16">
+<section id="home" class="min-h-screen relative overflow-hidden">
+<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/ai/img_res/0e218bb9cd2717971ef4475abd8a794a.jpg'); opacity: 0.1;"></div>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+<div class="flex flex-col md:flex-row items-center justify-between">
+<div class="md:w-1/2 space-y-8">
+<h1 class="text-5xl md:text-6xl font-bold leading-tight bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+Discover the Future of AI Tools
+</h1>
+<p class="text-xl text-gray-600 leading-relaxed">
+Explore our curated collection of cutting-edge AI tools that will revolutionize the way you work, create, and innovate.
+</p>
+<div class="flex space-x-4">
+<button class="!rounded-button bg-primary text-white px-8 py-4 text-lg font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">
+Get Started
+</button>
+<button class="!rounded-button border-2 border-primary text-primary px-8 py-4 text-lg font-medium hover:bg-primary/10 transition-colors cursor-pointer whitespace-nowrap">
+Learn More
+</button>
+</div>
+</div>
+<div class="md:w-1/2 mt-12 md:mt-0">
+<img src="https://public.readdy.ai/ai/img_res/de60ddd4bbf7ada5fb02a2508af8d6a2.jpg" alt="AI Interface" class="w-full h-auto rounded-2xl shadow-2xl">
+</div>
+</div>
+</div>
+<div class="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2">
+<i class="ri-arrow-down-line text-3xl text-primary"></i>
+</div>
+</section>
+<section id="tools" class="py-20 bg-gray-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-gray-900 mb-4">Popular AI Tools</h2>
+<p class="text-xl text-gray-600">Find the perfect AI tool for your needs</p>
+</div>
+<div class="flex items-center justify-between mb-8">
+<div class="relative flex-1 max-w-lg">
+<input type="text" placeholder="Search AI tools..." class="w-full pl-12 pr-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+<i class="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+</div>
+<div class="ml-4 flex space-x-2">
+<div class="relative">
+<button id="filterBtn" class="!rounded-button px-4 py-2 text-sm font-medium bg-white border border-gray-200 hover:bg-gray-50 cursor-pointer whitespace-nowrap">
+<i class="ri-filter-3-line mr-2"></i>Filters
+</button>
+<div id="filterDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+<div class="p-4">
+<div class="mb-4">
+<h3 class="font-medium text-gray-900 mb-2">Category</h3>
+<div class="space-y-2">
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="chatbot">
+<span class="ml-2 text-gray-600">Chatbot</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="image-gen">
+<span class="ml-2 text-gray-600">Image Gen</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="writing">
+<span class="ml-2 text-gray-600">Writing</span>
+</label>
+</div>
+</div>
+<div class="mb-4">
+<h3 class="font-medium text-gray-900 mb-2">Price Range</h3>
+<div class="space-y-2">
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="free">
+<span class="ml-2 text-gray-600">Free</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="paid">
+<span class="ml-2 text-gray-600">Paid</span>
+</label>
+</div>
+</div>
+<div class="mb-4">
+<h3 class="font-medium text-gray-900 mb-2">Rating</h3>
+<div class="space-y-2">
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="4-plus">
+<span class="ml-2 text-gray-600">4+ stars</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="3-plus">
+<span class="ml-2 text-gray-600">3+ stars</span>
+</label>
+</div>
+</div>
+<div>
+<h3 class="font-medium text-gray-900 mb-2">Features</h3>
+<div class="space-y-2">
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="api">
+<span class="ml-2 text-gray-600">API Access</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="integration">
+<span class="ml-2 text-gray-600">Integrations</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="custom">
+<span class="ml-2 text-gray-600">Customization</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const filterBtn = document.getElementById('filterBtn');
+const filterDropdown = document.getElementById('filterDropdown');
+const checkboxes = filterDropdown.querySelectorAll('input[type="checkbox"]');
+filterBtn.addEventListener('click', function(e) {
+e.stopPropagation();
+filterDropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', function(e) {
+if (!filterDropdown.contains(e.target) && e.target !== filterBtn) {
+filterDropdown.classList.add('hidden');
+}
+});
+checkboxes.forEach(checkbox => {
+checkbox.addEventListener('change', function() {
+applyFilters();
+});
+});
+function applyFilters() {
+const selectedFilters = {
+categories: [],
+priceRange: [],
+rating: [],
+features: []
+};
+checkboxes.forEach(checkbox => {
+if (checkbox.checked) {
+if (['chatbot', 'image-gen', 'writing'].includes(checkbox.value)) {
+selectedFilters.categories.push(checkbox.value);
+} else if (['free', 'paid'].includes(checkbox.value)) {
+selectedFilters.priceRange.push(checkbox.value);
+} else if (['4-plus', '3-plus'].includes(checkbox.value)) {
+selectedFilters.rating.push(checkbox.value);
+} else if (['api', 'integration', 'custom'].includes(checkbox.value)) {
+selectedFilters.features.push(checkbox.value);
+}
+}
+});
+// Here you would typically update the UI based on selected filters
+console.log('Applied filters:', selectedFilters);
+}
+});
+</script>
+<div class="relative">
+<button id="sortBtn" class="!rounded-button px-4 py-2 text-sm font-medium bg-white border border-gray-200 hover:bg-gray-50 cursor-pointer whitespace-nowrap">
+<i class="ri-sort-desc-line mr-2"></i>Sort
+</button>
+<div id="sortDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+<div class="py-2">
+<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 cursor-pointer" data-sort="popular">Most Popular</button>
+<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 cursor-pointer" data-sort="rating">Highest Rated</button>
+<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 cursor-pointer" data-sort="newest">Newest First</button>
+<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 cursor-pointer" data-sort="price-low">Price: Low to High</button>
+<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 cursor-pointer" data-sort="price-high">Price: High to Low</button>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const sortBtn = document.getElementById('sortBtn');
+const sortDropdown = document.getElementById('sortDropdown');
+const sortOptions = sortDropdown.querySelectorAll('button');
+sortBtn.addEventListener('click', function(e) {
+e.stopPropagation();
+sortDropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', function(e) {
+if (!sortDropdown.contains(e.target) && e.target !== sortBtn) {
+sortDropdown.classList.add('hidden');
+}
+});
+sortOptions.forEach(option => {
+option.addEventListener('click', function() {
+const sortType = this.dataset.sort;
+const toolCards = document.querySelectorAll('.tool-card');
+const toolsContainer = toolCards[0].parentElement;
+const sortedCards = Array.from(toolCards).sort((a, b) => {
+switch(sortType) {
+case 'popular':
+const reviewsA = parseInt(a.querySelector('.text-gray-500').textContent);
+const reviewsB = parseInt(b.querySelector('.text-gray-500').textContent);
+return reviewsB - reviewsA;
+case 'rating':
+const ratingA = parseFloat(a.querySelector('.text-sm.font-medium').textContent);
+const ratingB = parseFloat(b.querySelector('.text-sm.font-medium').textContent);
+return ratingB - ratingA;
+case 'newest':
+return Math.random() - 0.5; // Simulated random sorting for demo
+case 'price-low':
+return Math.random() - 0.5; // Simulated random sorting for demo
+case 'price-high':
+return Math.random() - 0.5; // Simulated random sorting for demo
+default:
+return 0;
+}
+});
+sortedCards.forEach(card => toolsContainer.appendChild(card));
+sortDropdown.classList.add('hidden');
+});
+});
+});
+</script>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<div class="tool-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer">
+<img src="https://public.readdy.ai/ai/img_res/5370ece9113157cc280066b7b0207ecc.jpg" alt="AI Chatbot" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">SmartChat AI</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">Chatbot</span>
+</div>
+<p class="text-gray-600 mb-4">Advanced conversational AI for customer support and engagement</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium text-gray-600">4.8</span>
+<span class="mx-2 text-gray-300">•</span>
+<span class="text-sm text-gray-500">2.5k reviews</span>
+</div>
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</div>
+</div>
+</div>
+<div class="tool-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer">
+<img src="https://public.readdy.ai/ai/img_res/183fd7dbce10935d0e4dbb4c95b75c5b.jpg" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">ArtifyAI</h3>
+<span class="px-3 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">Image Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Create stunning artwork with AI-powered image generation</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium text-gray-600">4.9</span>
+<span class="mx-2 text-gray-300">•</span>
+<span class="text-sm text-gray-500">3.2k reviews</span>
+</div>
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</div>
+</div>
+</div>
+<div class="tool-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer">
+<img src="https://public.readdy.ai/ai/img_res/21a3ebb44423257372abdb0697d52080.jpg" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">WriteGenius</h3>
+<span class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Writing</span>
+</div>
+<p class="text-gray-600 mb-4">AI-powered writing assistant for perfect content every time</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium text-gray-600">4.7</span>
+<span class="mx-2 text-gray-300">•</span>
+<span class="text-sm text-gray-500">1.8k reviews</span>
+</div>
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</div>
+</div>
+</div>
+</div>
+<div class="text-center mt-12">
+<button id="loadMoreBtn" class="!rounded-button bg-white border border-gray-200 text-gray-700 px-6 py-3 text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap flex items-center gap-2">
+<span>Load More Tools</span>
+<div id="loadingSpinner" class="hidden">
+<div class="animate-spin rounded-full h-4 w-4 border-2 border-primary border-t-transparent"></div>
+</div>
+</button>
+<script>
+const toolsData = [
+{
+name: "VoiceAI Pro",
+category: "Voice",
+categoryColor: "blue",
+description: "Professional voice synthesis and modulation platform",
+rating: 4.6,
+reviews: "1.9k",
+image: "https://public.readdy.ai/ai/img_res/a714094fc729a91e887c6edb1a9b8839.jpg"
+},
+{
+name: "DataMind",
+category: "Analytics",
+categoryColor: "indigo",
+description: "AI-powered data analytics and visualization tool",
+rating: 4.7,
+reviews: "2.1k",
+image: "https://public.readdy.ai/ai/img_res/6e3891f635208975881e906e19222ddc.jpg"
+},
+{
+name: "CodeAssist",
+category: "Development",
+categoryColor: "emerald",
+description: "Intelligent code completion and optimization assistant",
+rating: 4.8,
+reviews: "2.3k",
+image: "https://public.readdy.ai/ai/img_res/13f6103b7214abc8c30ad74dd3fce368.jpg"
+}
+];
+let currentPage = 1;
+const loadMoreBtn = document.getElementById('loadMoreBtn');
+const loadingSpinner = document.getElementById('loadingSpinner');
+const toolsContainer = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3.gap-8');
+loadMoreBtn.addEventListener('click', async () => {
+loadMoreBtn.disabled = true;
+loadingSpinner.classList.remove('hidden');
+await new Promise(resolve => setTimeout(resolve, 1000));
+const newTools = toolsData.map(tool => `
+<div class="tool-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer opacity-0 transform translate-y-4 transition-all duration-500">
+<img src="${tool.image}" alt="${tool.name}" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">${tool.name}</h3>
+<span class="px-3 py-1 text-xs font-medium bg-${tool.categoryColor}-100 text-${tool.categoryColor}-800 rounded-full">${tool.category}</span>
+</div>
+<p class="text-gray-600 mb-4">${tool.description}</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<i class="ri-star-fill text-yellow-400"></i>
+<span class="ml-1 text-sm font-medium text-gray-600">${tool.rating}</span>
+<span class="mx-2 text-gray-300">•</span>
+<span class="text-sm text-gray-500">${tool.reviews} reviews</span>
+</div>
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</div>
+</div>
+</div>
+`).join('');
+toolsContainer.insertAdjacentHTML('beforeend', newTools);
+requestAnimationFrame(() => {
+const newCards = toolsContainer.querySelectorAll('.tool-card.opacity-0');
+newCards.forEach((card, index) => {
+setTimeout(() => {
+card.classList.remove('opacity-0', 'translate-y-4');
+}, index * 100);
+});
+});
+currentPage++;
+if(currentPage >= 3) {
+loadMoreBtn.style.display = 'none';
+}
+loadMoreBtn.disabled = false;
+loadingSpinner.classList.add('hidden');
+});
+</script>
+</div>
+</div>
+</section>
+<section id="advertising" class="py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-gray-900 mb-4">Advertise With Us</h2>
+<p class="text-xl text-gray-600">Reach thousands of AI enthusiasts and professionals</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+<div class="text-center mb-8">
+<h3 class="text-2xl font-bold text-gray-900 mb-2">Starter</h3>
+<div class="flex items-center justify-center">
+<span class="text-4xl font-bold text-gray-900">$299</span>
+<span class="text-gray-500 ml-2">/month</span>
+</div>
+</div>
+<ul class="space-y-4 mb-8">
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Basic listing placement</span>
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Monthly performance report</span>
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Email support</span>
+</li>
+</ul>
+<a href="https://readdy.ai/home/3b5bc2b9-4ae9-470b-9c4d-bb565d696381/47f0023d-34c8-40fc-964a-06deb82915e7" data-readdy="true" class="block">
+<button class="!rounded-button w-full bg-primary text-white py-3 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Get Started</button>
+</a>
+</div>
+<div class="bg-white rounded-xl shadow-lg p-8 border-2 border-primary relative">
+<div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+<span class="bg-primary text-white px-4 py-1 text-sm font-medium rounded-full">Most Popular</span>
+</div>
+<div class="text-center mb-8">
+<h3 class="text-2xl font-bold text-gray-900 mb-2">Professional</h3>
+<div class="flex items-center justify-center">
+<span class="text-4xl font-bold text-gray-900">$599</span>
+<span class="text-gray-500 ml-2">/month</span>
+</div>
+</div>
+<ul class="space-y-4 mb-8">
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Premium listing placement</span>
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Weekly performance reports</span>
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Priority email & chat support</span>
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Featured in newsletter</span>
+</li>
+</ul>
+<a href="https://readdy.ai/home/3b5bc2b9-4ae9-470b-9c4d-bb565d696381/47f0023d-34c8-40fc-964a-06deb82915e7" data-readdy="true" class="block">
+<button class="!rounded-button w-full bg-primary text-white py-3 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Get Started</button>
+</a>
+</div>
+<div class="bg-white rounded-xl shadow-lg p-8 border border-gray-100">
+<div class="text-center mb-8">
+<h3 class="text-2xl font-bold text-gray-900 mb-2">Enterprise</h3>
+<div class="flex items-center justify-center">
+<span class="text-4xl font-bold text-gray-900">$999</span>
+<span class="text-gray-500 ml-2">/month</span>
+</div>
+</div>
+<ul class="space-y-4 mb-8">
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Custom listing placement</span>
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Daily performance reports</span>
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span class="text-gray-600">24/7 priority support</span>
+</li>
+<li class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Custom marketing campaign</span>
+</li>
+</ul>
+<button onclick="openEnterpriseModal()" class="!rounded-button w-full bg-primary text-white py-3 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Contact Sales</button>
+<div id="enterpriseModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+<div class="bg-white rounded-xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
+<div class="p-6 space-y-6">
+<div class="flex justify-between items-center">
+<h3 class="text-2xl font-bold text-gray-900">Enterprise Plan Inquiry</h3>
+<button onclick="closeEnterpriseModal()" class="text-gray-400 hover:text-gray-500">
+<i class="ri-close-line text-2xl"></i>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-6">
+<form id="enterpriseForm" class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Company Name *</label>
+<input type="text" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Employee Count *</label>
+<select required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary pr-8">
+<option value="">Select range</option>
+<option value="1-50">1-50</option>
+<option value="51-200">51-200</option>
+<option value="201-500">201-500</option>
+<option value="501+">501+</option>
+</select>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Requirements *</label>
+<textarea required rows="4" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary"></textarea>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Preferred Contact Method *</label>
+<div class="space-y-2">
+<label class="flex items-center">
+<input type="radio" name="contact" value="email" required class="text-primary">
+<span class="ml-2 text-gray-600">Email</span>
+</label>
+<label class="flex items-center">
+<input type="radio" name="contact" value="phone" required class="text-primary">
+<span class="ml-2 text-gray-600">Phone</span>
+</label>
+</div>
+</div>
+<button type="submit" id="submitInquiryBtn" class="!rounded-button w-full bg-primary text-white py-3 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center">
+<span>Submit Inquiry</span>
+<div id="submitSpinner" class="hidden ml-2">
+<div class="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+</div>
+</button>
+<div id="successModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+<div class="bg-white rounded-xl max-w-lg w-full mx-4">
+<div class="p-6">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-2xl font-bold text-gray-900">Inquiry Submitted Successfully</h3>
+<button onclick="closeSuccessModal()" class="text-gray-400 hover:text-gray-500">
+<i class="ri-close-line text-2xl"></i>
+</button>
+</div>
+<div class="space-y-4">
+<div class="bg-green-50 rounded-lg p-4">
+<div class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 text-xl mr-2"></i>
+<p class="text-green-800">Your inquiry has been received and is being processed.</p>
+</div>
+</div>
+<div class="space-y-2">
+<p class="text-gray-600"><span class="font-medium">Reference Number:</span> <span id="referenceNumber"></span></p>
+<p class="text-gray-600"><span class="font-medium">Estimated Response Time:</span> Within 24-48 hours</p>
+<p class="text-gray-600"><span class="font-medium">Submitted On:</span> <span id="submissionDate"></span></p>
+</div>
+<button onclick="downloadSummary()" class="!rounded-button w-full bg-gray-100 text-gray-700 py-3 text-sm font-medium hover:bg-gray-200 transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center">
+<i class="ri-download-line mr-2"></i>
+Download Summary PDF
+</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.getElementById('enterpriseForm').addEventListener('submit', async function(e) {
+e.preventDefault();
+// Validate form
+const form = e.target;
+if (!form.checkValidity()) {
+form.reportValidity();
+return;
+}
+// Show loading state
+const submitBtn = document.getElementById('submitInquiryBtn');
+const submitSpinner = document.getElementById('submitSpinner');
+const btnText = submitBtn.querySelector('span');
+submitBtn.disabled = true;
+btnText.textContent = 'Submitting...';
+submitSpinner.classList.remove('hidden');
+try {
+// Simulate API call
+await new Promise(resolve => setTimeout(resolve, 1500));
+// Generate reference number
+const refNumber = 'INQ-' + Date.now().toString().slice(-6);
+document.getElementById('referenceNumber').textContent = refNumber;
+// Set submission date
+const now = new Date();
+document.getElementById('submissionDate').textContent = now.toLocaleString();
+// Show success modal
+closeEnterpriseModal();
+document.getElementById('successModal').classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+// Reset form
+form.reset();
+} catch (error) {
+console.error('Submission error:', error);
+// Show error message
+const errorMessage = document.createElement('div');
+errorMessage.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg';
+errorMessage.textContent = 'An error occurred. Please try again.';
+document.body.appendChild(errorMessage);
+setTimeout(() => errorMessage.remove(), 3000);
+} finally {
+// Reset button state
+submitBtn.disabled = false;
+btnText.textContent = 'Submit Inquiry';
+submitSpinner.classList.add('hidden');
+}
+});
+function closeSuccessModal() {
+document.getElementById('successModal').classList.add('hidden');
+document.body.style.overflow = 'auto';
+}
+function downloadSummary() {
+const refNumber = document.getElementById('referenceNumber').textContent;
+const submissionDate = document.getElementById('submissionDate').textContent;
+// Create PDF content (in real implementation, use a PDF library)
+const content = `
+Inquiry Summary
+Reference Number: ${refNumber}
+Submission Date: ${submissionDate}
+Estimated Response Time: 24-48 hours
+Thank you for your inquiry. Our team will contact you shortly.
+`;
+// Create blob and download
+const blob = new Blob([content], { type: 'text/plain' });
+const url = window.URL.createObjectURL(blob);
+const a = document.createElement('a');
+a.href = url;
+a.download = `inquiry-${refNumber}.txt`;
+a.click();
+window.URL.revokeObjectURL(url);
+}
+// Close modal when clicking outside
+document.getElementById('successModal').addEventListener('click', function(e) {
+if (e.target === this) {
+closeSuccessModal();
+}
+});
+</script>
+</form>
+</div>
+<div class="bg-gray-50 p-6 rounded-lg space-y-4">
+<h4 class="font-semibold text-gray-900">Enterprise Benefits</h4>
+<ul class="space-y-3">
+<li class="flex items-center">
+<i class="ri-check-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Dedicated account manager</span>
+</li>
+<li class="flex items-center">
+<i class="ri-check-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Custom integration support</span>
+</li>
+<li class="flex items-center">
+<i class="ri-check-line text-green-500 mr-2"></i>
+<span class="text-gray-600">24/7 priority support</span>
+</li>
+<li class="flex items-center">
+<i class="ri-check-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Advanced analytics</span>
+</li>
+<li class="flex items-center">
+<i class="ri-check-line text-green-500 mr-2"></i>
+<span class="text-gray-600">Custom training sessions</span>
+</li>
+</ul>
+<div class="mt-6 pt-6 border-t border-gray-200">
+<h4 class="font-semibold text-gray-900 mb-2">Contact Sales Team</h4>
+<p class="text-gray-600">Direct Line: +1 (888) 123-4567</p>
+<p class="text-gray-600">Hours: Mon-Fri, 9AM-6PM EST</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+function openEnterpriseModal() {
+document.getElementById('enterpriseModal').classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+}
+function closeEnterpriseModal() {
+document.getElementById('enterpriseModal').classList.add('hidden');
+document.body.style.overflow = 'auto';
+}
+document.getElementById('enterpriseForm').addEventListener('submit', function(e) {
+e.preventDefault();
+const formData = new FormData(e.target);
+const data = Object.fromEntries(formData);
+// Here you would typically send the data to your backend
+console.log('Form submitted:', data);
+// Show success message
+const successMessage = document.createElement('div');
+successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg';
+successMessage.textContent = 'Thank you for your inquiry. Our sales team will contact you shortly.';
+document.body.appendChild(successMessage);
+// Remove success message after 3 seconds
+setTimeout(() => {
+successMessage.remove();
+closeEnterpriseModal();
+}, 3000);
+});
+// Close modal when clicking outside
+document.getElementById('enterpriseModal').addEventListener('click', function(e) {
+if (e.target === this) {
+closeEnterpriseModal();
+}
+});
+</script>
 </div>
 </div>
 </div>
 </section>
-<section class="py-12 bg-white">
-<div class="container mx-auto px-4">
-<div class="flex gap-8">
-<aside class="w-64 flex-shrink-0">
-<div class="sticky top-20">
-<h3 class="text-lg font-semibold mb-4">Filters</h3>
-<div class="mb-6">
-<h4 class="text-sm font-medium mb-3">Categories</h4>
-<div class="space-y-2">
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="rounded text-primary">
-<span class="text-sm">Text Generation</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="rounded text-primary">
-<span class="text-sm">Image Generation</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="rounded text-primary">
-<span class="text-sm">Video Creation</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="rounded text-primary">
-<span class="text-sm">Code Assistant</span>
-</label>
+<section id="about" class="py-20 bg-gray-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-gray-900 mb-4">About Us</h2>
+<p class="text-xl text-gray-600">Meet the team behind the innovation</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16 mb-16">
+<div>
+<h3 class="text-2xl font-bold text-gray-900 mb-6">Our Mission</h3>
+<p class="text-gray-600 leading-relaxed">
+We're on a mission to democratize access to artificial intelligence by curating and showcasing the most innovative AI tools available today. Our platform connects creators, developers, and businesses with cutting-edge AI solutions that drive innovation and efficiency.
+</p>
+</div>
+<div>
+<h3 class="text-2xl font-bold text-gray-900 mb-6">Our Vision</h3>
+<p class="text-gray-600 leading-relaxed">
+We envision a future where AI technology is accessible to everyone, empowering individuals and organizations to achieve their full potential. Through our platform, we aim to build a thriving ecosystem of AI innovation and collaboration.
+</p>
 </div>
 </div>
-<div class="mb-6">
-<h4 class="text-sm font-medium mb-3">Price</h4>
-<div class="space-y-2">
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="rounded text-primary">
-<span class="text-sm">Free</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="rounded text-primary">
-<span class="text-sm">Freemium</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="rounded text-primary">
-<span class="text-sm">Paid</span>
-</label>
-</div>
-</div>
-<div class="mb-6">
-<h4 class="text-sm font-medium mb-3">Rating</h4>
-<div class="space-y-2">
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="rounded text-primary">
-<span class="text-sm">4+ Stars</span>
-</label>
-<label class="flex items-center gap-2 cursor-pointer">
-<input type="checkbox" class="rounded text-primary">
-<span class="text-sm">3+ Stars</span>
-</label>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<div class="bg-white rounded-xl shadow-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/368db5153910526b7464ee9b4aa0719e.jpg" alt="Sarah Mitchell" class="w-full h-64 object-cover">
+<div class="p-6">
+<h4 class="text-xl font-semibold text-gray-900 mb-2">Sarah Mitchell</h4>
+<p class="text-gray-600 mb-4">Chief Executive Officer</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-primary">
+<i class="ri-linkedin-fill"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary">
+<i class="ri-twitter-fill"></i>
+</a>
 </div>
 </div>
 </div>
-</aside>
-<div class="flex-1">
-<div class="flex justify-between items-center mb-8">
-<h2 class="text-2xl font-bold">Featured AI Tools</h2>
-<div class="relative">
-<button id="sortButton" class="flex items-center gap-2 px-4 py-2 border rounded-button text-sm hover:border-primary">
-<span>Sort by: Popular</span>
+<div class="bg-white rounded-xl shadow-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/5e1aeaea8d14b9f40e5a12dc4e15fc26.jpg" alt="David Chen" class="w-full h-64 object-cover">
+<div class="p-6">
+<h4 class="text-xl font-semibold text-gray-900 mb-2">David Chen</h4>
+<p class="text-gray-600 mb-4">Chief Technology Officer</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-primary">
+<i class="ri-linkedin-fill"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary">
+<i class="ri-github-fill"></i>
+</a>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-xl shadow-lg overflow-hidden">
+<img src="https://public.readdy.ai/ai/img_res/5854da63712236519603f242ea385b08.jpg" alt="Emily Rodriguez" class="w-full h-64 object-cover">
+<div class="p-6">
+<h4 class="text-xl font-semibold text-gray-900 mb-2">Emily Rodriguez</h4>
+<p class="text-gray-600 mb-4">Head of Product</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-primary">
+<i class="ri-linkedin-fill"></i>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary">
+<i class="ri-dribbble-fill"></i>
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="contact" class="py-20">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-gray-900 mb-4">Get in Touch</h2>
+<p class="text-xl text-gray-600">We'd love to hear from you</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+<div>
+<form class="space-y-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+<input type="text" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+<input type="email" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+<input type="text" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+<textarea rows="4" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary"></textarea>
+</div>
+<button type="submit" id="contactSubmitBtn" class="!rounded-button w-full bg-primary text-white py-3 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap flex items-center justify-center">
+<span>Send Message</span>
+<div id="contactSubmitSpinner" class="hidden ml-2">
+<div class="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent"></div>
+</div>
+</button>
+<div id="contactSuccessModal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden flex items-center justify-center">
+<div class="bg-white rounded-xl max-w-lg w-full mx-4">
+<div class="p-6">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-2xl font-bold text-gray-900">Message Sent Successfully</h3>
+<button onclick="closeContactSuccessModal()" class="text-gray-400 hover:text-gray-500">
+<i class="ri-close-line text-2xl"></i>
+</button>
+</div>
+<div class="space-y-4">
+<div class="bg-green-50 rounded-lg p-4">
+<div class="flex items-center">
+<i class="ri-checkbox-circle-line text-green-500 text-xl mr-2"></i>
+<p class="text-green-800">Your message has been received. We'll get back to you shortly.</p>
+</div>
+</div>
+<p class="text-gray-600"><span class="font-medium">Reference Number:</span> <span id="contactReferenceNumber"></span></p>
+<p class="text-gray-600"><span class="font-medium">Submitted On:</span> <span id="contactSubmissionDate"></span></p>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.querySelector('form').addEventListener('submit', async function(e) {
+e.preventDefault();
+// Validate required fields
+const name = this.querySelector('input[type="text"]').value.trim();
+const email = this.querySelector('input[type="email"]').value.trim();
+const subject = this.querySelector('input[type="text"]:nth-of-type(2)').value.trim();
+const message = this.querySelector('textarea').value.trim();
+if (!name || !email || !subject || !message) {
+const errorMessage = document.createElement('div');
+errorMessage.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+errorMessage.textContent = 'Please fill in all fields';
+document.body.appendChild(errorMessage);
+setTimeout(() => errorMessage.remove(), 3000);
+return;
+}
+// Show loading state
+const submitBtn = document.getElementById('contactSubmitBtn');
+const submitSpinner = document.getElementById('contactSubmitSpinner');
+const btnText = submitBtn.querySelector('span');
+submitBtn.disabled = true;
+btnText.textContent = 'Sending...';
+submitSpinner.classList.remove('hidden');
+try {
+// Simulate API call
+await new Promise(resolve => setTimeout(resolve, 1500));
+// Generate reference number
+const refNumber = 'MSG-' + Date.now().toString().slice(-6);
+document.getElementById('contactReferenceNumber').textContent = refNumber;
+// Set submission date
+const now = new Date();
+document.getElementById('contactSubmissionDate').textContent = now.toLocaleString();
+// Show success modal
+document.getElementById('contactSuccessModal').classList.remove('hidden');
+document.body.style.overflow = 'hidden';
+// Auto close after 3 seconds
+setTimeout(() => {
+closeContactSuccessModal();
+}, 3000);
+// Reset form
+this.reset();
+} catch (error) {
+console.error('Submission error:', error);
+const errorMessage = document.createElement('div');
+errorMessage.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg z-50';
+errorMessage.textContent = 'An error occurred. Please try again.';
+document.body.appendChild(errorMessage);
+setTimeout(() => errorMessage.remove(), 3000);
+} finally {
+// Reset button state
+submitBtn.disabled = false;
+btnText.textContent = 'Send Message';
+submitSpinner.classList.add('hidden');
+}
+});
+function closeContactSuccessModal() {
+document.getElementById('contactSuccessModal').classList.add('hidden');
+document.body.style.overflow = 'auto';
+}
+// Close modal when clicking outside
+document.getElementById('contactSuccessModal').addEventListener('click', function(e) {
+if (e.target === this) {
+closeContactSuccessModal();
+}
+});
+</script>
+</form>
+</div>
+<div class="space-y-8">
+<div>
+<h3 class="text-2xl font-bold text-gray-900 mb-6">FAQ</h3>
+<div class="space-y-4">
+<div class="border border-gray-200 rounded-lg p-4">
+<button class="flex items-center justify-between w-full text-left">
+<span class="text-gray-900 font-medium">How do I list my AI tool?</span>
 <i class="ri-arrow-down-s-line"></i>
 </button>
-<div id="sortDropdown" class="hidden absolute top-full right-0 mt-1 w-48 bg-white border rounded-lg shadow-lg py-2">
-<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">Popular</a>
-<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">Newest</a>
-<a href="#" class="block px-4 py-2 text-sm hover:bg-gray-50">Rating</a>
+<div class="mt-2 text-gray-600">
+To list your AI tool, simply sign up for an account and submit your tool through our dashboard. Our team will review your submission and get back to you within 48 hours.
 </div>
 </div>
-</div>
-<div class="grid grid-cols-3 gap-6">
-<div class="bg-white rounded-lg border hover:shadow-lg transition-shadow">
-<img src="https://public.readdy.ai/ai/img_res/364ca0703457903c956e5952d4055221.jpg" class="w-full h-48 object-cover rounded-t-lg" alt="Tool thumbnail">
-<div class="p-4">
-<div class="flex items-start justify-between mb-2">
-<h3 class="text-lg font-semibold">TextCraft AI</h3>
-<span class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs">Free</span>
-</div>
-<p class="text-gray-600 text-sm mb-4">Advanced text generation tool powered by GPT-4, perfect for content creation and copywriting.</p>
-<div class="flex items-center justify-between">
-<span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs">Text Generation</span>
-<div class="flex items-center gap-2">
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
-<i class="ri-heart-line"></i>
+<div class="border border-gray-200 rounded-lg p-4">
+<button class="flex items-center justify-between w-full text-left">
+<span class="text-gray-900 font-medium">What are the advertising options?</span>
+<i class="ri-arrow-down-s-line"></i>
 </button>
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
-<i class="ri-share-line"></i>
+<div class="mt-2 text-gray-600">
+We offer various advertising packages to suit different needs and budgets. Check out our Advertising section for detailed information about our packages and pricing.
+</div>
+</div>
+<div class="border border-gray-200 rounded-lg p-4">
+<button class="flex items-center justify-between w-full text-left">
+<span class="text-gray-900 font-medium">How do you verify AI tools?</span>
+<i class="ri-arrow-down-s-line"></i>
 </button>
+<div class="mt-2 text-gray-600">
+Our team thoroughly tests each AI tool before listing it on our platform. We verify functionality, user experience, and customer support to ensure quality.
 </div>
 </div>
 </div>
 </div>
-<div class="bg-white rounded-lg border hover:shadow-lg transition-shadow">
-<img src="https://public.readdy.ai/ai/img_res/5270dc1865bd2104727e9da0e3a00425.jpg" class="w-full h-48 object-cover rounded-t-lg" alt="Tool thumbnail">
-<div class="p-4">
-<div class="flex items-start justify-between mb-2">
-<h3 class="text-lg font-semibold">ImageGenius</h3>
-<span class="px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs">Freemium</span>
-</div>
-<p class="text-gray-600 text-sm mb-4">Create stunning AI-generated images with advanced style control and editing capabilities.</p>
-<div class="flex items-center justify-between">
-<span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs">Image Generation</span>
-<div class="flex items-center gap-2">
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
-<i class="ri-heart-line"></i>
-</button>
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
-<i class="ri-share-line"></i>
-</button>
+<div>
+<h3 class="text-2xl font-bold text-gray-900 mb-6">Connect With Us</h3>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:bg-primary hover:text-white transition-colors">
+<i class="ri-twitter-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:bg-primary hover:text-white transition-colors">
+<i class="ri-linkedin-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:bg-primary hover:text-white transition-colors">
+<i class="ri-github-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-100 text-gray-400 hover:bg-primary hover:text-white transition-colors">
+<i class="ri-instagram-fill"></i>
+</a>
 </div>
 </div>
 </div>
-</div>
-<div class="bg-white rounded-lg border hover:shadow-lg transition-shadow">
-<img src="https://public.readdy.ai/ai/img_res/185ea41661f7cb3fab482579ba3946c3.jpg" class="w-full h-48 object-cover rounded-t-lg" alt="Tool thumbnail">
-<div class="p-4">
-<div class="flex items-start justify-between mb-2">
-<h3 class="text-lg font-semibold">VideoMaster AI</h3>
-<span class="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs">Paid</span>
-</div>
-<p class="text-gray-600 text-sm mb-4">Professional video editing and generation platform powered by artificial intelligence.</p>
-<div class="flex items-center justify-between">
-<span class="px-3 py-1 bg-indigo-100 text-indigo-700 rounded-full text-xs">Video Creation</span>
-<div class="flex items-center gap-2">
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
-<i class="ri-heart-line"></i>
-</button>
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
-<i class="ri-share-line"></i>
-</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="mt-8 flex justify-center">
-<button class="px-6 py-3 bg-white border border-primary text-primary rounded-button hover:bg-gray-50">
-Load More
-</button>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section class="py-16 bg-gradient-to-b from-indigo-50 to-white">
-<div class="container mx-auto px-4 text-center">
-<h2 class="text-3xl font-bold mb-4">Stay Updated with Latest AI Tools</h2>
-<p class="text-gray-600 mb-8 max-w-2xl mx-auto">Subscribe to our newsletter and get weekly updates about new AI tools, features, and exclusive offers.</p>
-<div class="flex items-center justify-center gap-4">
-<input type="email" placeholder="Enter your email" class="w-96 h-12 px-4 rounded-button border focus:outline-none focus:border-primary">
-<button class="h-12 px-8 bg-primary text-white rounded-button hover:bg-primary/90">Subscribe</button>
 </div>
 </div>
 </section>
 </main>
 <footer class="bg-gray-900 text-white py-12">
-<div class="container mx-auto px-4">
-<div class="grid grid-cols-4 gap-8 mb-8">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
 <div>
-<h3 class="text-xl font-['Pacifico'] mb-4">webSnowi</h3>
-<p class="text-gray-400 text-sm">Your ultimate directory for discovering and comparing AI tools and services.</p>
+<a href="#" class="font-['Pacifico'] text-2xl text-white">logo</a>
+<p class="mt-4 text-gray-400">Discover and explore the best AI tools for your needs.</p>
 </div>
 <div>
-<h4 class="font-semibold mb-4">Categories</h4>
-<ul class="space-y-2 text-gray-400">
-<li><a href="#" class="hover:text-white">Text Generation</a></li>
-<li><a href="#" class="hover:text-white">Image Generation</a></li>
-<li><a href="#" class="hover:text-white">Video Creation</a></li>
-<li><a href="#" class="hover:text-white">Code Assistant</a></li>
+<h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+<ul class="space-y-2">
+<li><a href="#home" class="text-gray-400 hover:text-white">Home</a></li>
+<li><a href="#tools" class="text-gray-400 hover:text-white">AI Tools</a></li>
+<li><a href="#advertising" class="text-gray-400 hover:text-white">Advertising</a></li>
+<li><a href="#about" class="text-gray-400 hover:text-white">About Us</a></li>
+<li><a href="#contact" class="text-gray-400 hover:text-white">Contact</a></li>
 </ul>
 </div>
 <div>
-<h4 class="font-semibold mb-4">Company</h4>
-<ul class="space-y-2 text-gray-400">
-<li><a href="#" class="hover:text-white">About Us</a></li>
-<li><a href="#" class="hover:text-white">Contact</a></li>
-<li><a href="#" class="hover:text-white">Submit Tool</a></li>
-<li><a href="#" class="hover:text-white">Advertise</a></li>
+<h4 class="text-lg font-semibold mb-4">Legal</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white">Cookie Policy</a></li>
 </ul>
 </div>
 <div>
-<h4 class="font-semibold mb-4">Follow Us</h4>
-<div class="flex gap-4">
-<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
-<i class="ri-twitter-x-line"></i>
-</a>
-<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
-<i class="ri-linkedin-line"></i>
-</a>
-<a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
-<i class="ri-github-line"></i>
-</a>
+<h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+<p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates.</p>
+<form class="flex">
+<input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 text-sm text-gray-900 rounded-l-lg focus:outline-none">
+<button type="submit" class="!rounded-r-lg bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90">Subscribe</button>
+</form>
 </div>
 </div>
-</div>
-<div class="border-t border-gray-800 pt-8 flex justify-between items-center">
-<p class="text-gray-400 text-sm">© 2025 webSnowi. All rights reserved.</p>
-<div class="flex gap-6 text-sm text-gray-400">
-<a href="#" class="hover:text-white">Privacy Policy</a>
-<a href="#" class="hover:text-white">Terms of Service</a>
-</div>
+<div class="border-t border-gray-800 mt-12 pt-8 text-center">
+<p class="text-gray-400">&copy; 2024 AI Tools Hub. All rights reserved.</p>
 </div>
 </div>
 </footer>
-<script>
-const canvas = document.getElementById('snow');
-const ctx = canvas.getContext('2d');
-let width = canvas.width = window.innerWidth;
-let height = canvas.height = window.innerHeight;
-
-window.addEventListener('resize', () => {
-  width = canvas.width = window.innerWidth;
-  height = canvas.height = window.innerHeight;
-});
-
-const particles = [];
-const properties = {
-  particleCount: 100,
-  particleRadius: 2,
-  maxSpeed: 1,
-  colors: ['#ffffff', '#f0f0f0']
-};
-
-class Particle {
-  constructor() {
-    this.x = Math.random() * width;
-    this.y = Math.random() * height;
-    this.radius = Math.random() * properties.particleRadius;
-    this.speedY = Math.random() * properties.maxSpeed + 0.5;
-    this.speedX = Math.random() * 0.5 - 0.25;
-    this.color = properties.colors[Math.floor(Math.random() * properties.colors.length)];
-  }
-
-  update() {
-    this.y += this.speedY;
-    this.x += this.speedX;
-
-    if (this.y > height) {
-      this.y = 0;
-      this.x = Math.random() * width;
-    }
-  }
-
-  draw() {
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-    ctx.fillStyle = this.color;
-    ctx.fill();
-  }
-}
-
-for (let i = 0; i < properties.particleCount; i++) {
-  particles.push(new Particle());
-}
-
-function animate() {
-  ctx.clearRect(0, 0, width, height);
-  
-  particles.forEach(particle => {
-    particle.update();
-    particle.draw();
-  });
-  
-  requestAnimationFrame(animate);
-}
-
-animate();
-
-const sortButton = document.getElementById('sortButton');
-const sortDropdown = document.getElementById('sortDropdown');
-sortButton.addEventListener('click', () => {
-sortDropdown.classList.toggle('hidden');
-});
-document.addEventListener('click', (e) => {
-if (!sortButton.contains(e.target)) {
-sortDropdown.classList.add('hidden');
-}
-});
-document.querySelectorAll('.ri-heart-line').forEach(heart => {
-heart.addEventListener('click', function() {
-this.classList.toggle('ri-heart-line');
-this.classList.toggle('ri-heart-fill');
-this.classList.toggle('text-red-500');
-});
-});
-</script>
 </body>
 </html>
