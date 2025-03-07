@@ -4,8 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI Tools Hub - Discover the Best AI Tools</title>
-<script src="https://cdn.tailwindcss.com"></script>
 <link rel="icon" type="image/svg+xml" href="Favicon WS.svg">
+<script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -79,7 +79,10 @@ transform: translateY(-5px);
 <div class="flex justify-between h-16">
 <div class="flex items-center">
 <a href="#" class="font-['Pacifico'] text-2xl text-primary">webSnowi</a>
-<div class="hidden md:flex items-center space-x-8 ml-10">
+<div id="nav-menu" class="hidden md:flex flex-col md:flex-row items-left space-y-4 md:space-y-0 md:space-x-8 
+absolute md:static top-16 left-0 w-full md:w-auto 
+bg-white/95 md:bg-transparent backdrop-blur-lg shadow-lg md:shadow-none 
+border border-white/20 rounded p-4 md:p-0 transition-all duration-300 ease-in-out z-50">
 <a href="#home" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">Home</a>
 <a href="#tools" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">AI Tools</a>
 <a href="#advertising" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">Advertising</a>
@@ -91,22 +94,28 @@ transform: translateY(-5px);
 <a href="https://websnowi.github.io/websnowi/sign-in" data-readdy="true">
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Sign In</button>
 </a>
-<button class="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer">
+<button id="menu-toggle" class="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer">
 <i class="ri-menu-line text-xl"></i>
 </button>
 </div>
 </div>
 </div>
+<script>
+  document.getElementById("menu-toggle").addEventListener("click", function () {
+    let menu = document.getElementById("nav-menu");
+    menu.classList.toggle("hidden");
+    menu.classList.toggle("flex");
+  });
+</script>
 </nav>
 <main class="pt-16">
-<section id="home" class="relative bg-gradient-to-r from-indigo-50 to-indigo-100 overflow-hidden">
-<canvas id="snow" class="absolute inset-0 pointer-events-none"></canvas>
+<section id="home" class="relative bg-gradient-to-r from-indigo-50 to-indigo-100 overflow-hidden min-h-screen flex items-center">
 <div class="container mx-auto px-4 py-20">
-<div class="flex items-center">
-<div class="w-1/2">
-<h1 class="text-5xl font-bold text-gray-900 mb-6">Discover the Best AI Tools for Your Needs</h1>
-<p class="text-xl text-gray-600 mb-8">Explore our curated collection of 1000+ AI tools and find the perfect solution to enhance your workflow.</p>
-<div class="flex gap-4">
+<div class="flex flex-col md:flex-row items-center">
+<div class="w-full md:w-1/2 text-left">
+<h1 class="text-4xl md:text-6xl font-bold text-gray-900 mb-6">Discover the Best AI Tools for Your Needs</h1>
+<p class="text-lg md:text-xl text-gray-600 mb-8">Explore our curated collection of 1000+ AI tools and find the perfect solution to enhance your workflow.</p>
+<div class="flex flex-wrap justify-center md:justify-start gap-4">
 <button class="px-6 py-3 bg-primary text-white rounded-button text-base font-medium hover:bg-primary/90">
 Explore Tools
 </button>
@@ -115,11 +124,12 @@ Submit Your Tool
 </button>
 </div>
 </div>
-<div class="w-1/2 relative">
-<img src="https://public.readdy.ai/ai/img_res/941f9b7b8524cd6cdda01220d1ef9b76.jpg" class="w-full h-auto object-cover rounded-lg shadow-xl" alt="Hero Image">
+<div class="w-full md:w-1/2 mt-10 md:mt-0 relative">
+<img src="Hero Image WS.svg" class="w-full h-auto object-cover rounded-lg shadow-xl" alt="Hero Image">
 </div>
 </div>
 </div>
+<canvas id="snow" class="absolute inset-0 pointer-events-none"></canvas>
 <div class="scroll-indicator absolute bottom-8 left-1/2 transform -translate-x-1/2">
 <i class="ri-arrow-down-line text-3xl text-primary"></i>
 </div>
@@ -172,19 +182,7 @@ Submit Your Tool
 </label>
 </div>
 </div>
-<div class="mb-4">
-<h3 class="font-medium text-gray-900 mb-2">Rating</h3>
-<div class="space-y-2">
-<label class="flex items-center">
-<input type="checkbox" class="form-checkbox text-primary rounded" value="4-plus">
-<span class="ml-2 text-gray-600">4+ stars</span>
-</label>
-<label class="flex items-center">
-<input type="checkbox" class="form-checkbox text-primary rounded" value="3-plus">
-<span class="ml-2 text-gray-600">3+ stars</span>
-</label>
-</div>
-</div>
+
 <div>
 <h3 class="font-medium text-gray-900 mb-2">Features</h3>
 <div class="space-y-2">
@@ -311,7 +309,7 @@ sortDropdown.classList.add('hidden');
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="tool-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer">
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden">
 <img src="https://public.readdy.ai/ai/img_res/5370ece9113157cc280066b7b0207ecc.jpg" alt="AI Chatbot" class="w-full h-48 object-cover">
 <div class="p-6">
 <div class="flex items-center justify-between mb-4">
@@ -321,16 +319,18 @@ sortDropdown.classList.add('hidden');
 <p class="text-gray-600 mb-4">Advanced conversational AI for customer support and engagement</p>
 <div class="flex items-center justify-between">
 <div class="flex items-center">
-<i class="ri-star-fill text-yellow-400"></i>
-<span class="ml-1 text-sm font-medium text-gray-600">4.8</span>
-<span class="mx-2 text-gray-300">•</span>
-<span class="text-sm text-gray-500">2.5k reviews</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+</button>
 </div>
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
 </div>
 </div>
 </div>
-<div class="tool-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer">
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden">
 <img src="https://public.readdy.ai/ai/img_res/183fd7dbce10935d0e4dbb4c95b75c5b.jpg" alt="AI Image Generator" class="w-full h-48 object-cover">
 <div class="p-6">
 <div class="flex items-center justify-between mb-4">
@@ -340,16 +340,18 @@ sortDropdown.classList.add('hidden');
 <p class="text-gray-600 mb-4">Create stunning artwork with AI-powered image generation</p>
 <div class="flex items-center justify-between">
 <div class="flex items-center">
-<i class="ri-star-fill text-yellow-400"></i>
-<span class="ml-1 text-sm font-medium text-gray-600">4.9</span>
-<span class="mx-2 text-gray-300">•</span>
-<span class="text-sm text-gray-500">3.2k reviews</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+</button>
 </div>
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
 </div>
 </div>
 </div>
-<div class="tool-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer">
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden">
 <img src="https://public.readdy.ai/ai/img_res/21a3ebb44423257372abdb0697d52080.jpg" alt="AI Writing Assistant" class="w-full h-48 object-cover">
 <div class="p-6">
 <div class="flex items-center justify-between mb-4">
@@ -359,10 +361,12 @@ sortDropdown.classList.add('hidden');
 <p class="text-gray-600 mb-4">AI-powered writing assistant for perfect content every time</p>
 <div class="flex items-center justify-between">
 <div class="flex items-center">
-<i class="ri-star-fill text-yellow-400"></i>
-<span class="ml-1 text-sm font-medium text-gray-600">4.7</span>
-<span class="mx-2 text-gray-300">•</span>
-<span class="text-sm text-gray-500">1.8k reviews</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+</button>
 </div>
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
 </div>
@@ -415,7 +419,7 @@ loadMoreBtn.disabled = true;
 loadingSpinner.classList.remove('hidden');
 await new Promise(resolve => setTimeout(resolve, 1000));
 const newTools = toolsData.map(tool => `
-<div class="tool-card bg-white rounded-xl shadow-lg overflow-hidden cursor-pointer opacity-0 transform translate-y-4 transition-all duration-500">
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden opacity-0 transform translate-y-4 transition-all duration-500">
 <img src="${tool.image}" alt="${tool.name}" class="w-full h-48 object-cover">
 <div class="p-6">
 <div class="flex items-center justify-between mb-4">
@@ -425,10 +429,12 @@ const newTools = toolsData.map(tool => `
 <p class="text-gray-600 mb-4">${tool.description}</p>
 <div class="flex items-center justify-between">
 <div class="flex items-center">
-<i class="ri-star-fill text-yellow-400"></i>
-<span class="ml-1 text-sm font-medium text-gray-600">${tool.rating}</span>
-<span class="mx-2 text-gray-300">•</span>
-<span class="text-sm text-gray-500">${tool.reviews} reviews</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+</button>
 </div>
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
 </div>
@@ -484,7 +490,7 @@ loadingSpinner.classList.add('hidden');
 <span class="text-gray-600">Email support</span>
 </li>
 </ul>
-<a href="https://websnowi.github.io/websnowi/pricing" data-readdy="true" class="block">
+<a href="https://readdy.ai/home/3b5bc2b9-4ae9-470b-9c4d-bb565d696381/47f0023d-34c8-40fc-964a-06deb82915e7" data-readdy="true" class="block">
 <button class="!rounded-button w-full bg-primary text-white py-3 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Get Started</button>
 </a>
 </div>
@@ -517,7 +523,7 @@ loadingSpinner.classList.add('hidden');
 <span class="text-gray-600">Featured in newsletter</span>
 </li>
 </ul>
-<a href="https://websnowi.github.io/websnowi/pricing" data-readdy="true" class="block">
+<a href="https://readdy.ai/home/3b5bc2b9-4ae9-470b-9c4d-bb565d696381/47f0023d-34c8-40fc-964a-06deb82915e7" data-readdy="true" class="block">
 <button class="!rounded-button w-full bg-primary text-white py-3 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Get Started</button>
 </a>
 </div>
