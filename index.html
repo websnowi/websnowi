@@ -106,6 +106,15 @@ border border-white/20 rounded p-4 md:p-0 transition-all duration-300 ease-in-ou
     menu.classList.toggle("hidden");
     menu.classList.toggle("flex");
   });
+
+  // Close the menu when clicking on a link
+  document.querySelectorAll("#nav-menu .nav-link").forEach(link => {
+    link.addEventListener("click", function () {
+      let menu = document.getElementById("nav-menu");
+      menu.classList.add("hidden");
+      menu.classList.remove("flex");
+    });
+  });
 </script>
 </nav>
 <main class="pt-16">
