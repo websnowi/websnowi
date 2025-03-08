@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Checkout - AI Tools Hub</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#6366f1',
+secondary: '#f59e0b'
+},
+borderRadius: {
+'none': '0px',
+'sm': '2px',
+DEFAULT: '4px',
+'md': '8px',
+'lg': '12px',
+'xl': '16px',
+'2xl': '20px',
+'3xl': '24px',
+'full': '9999px',
+'button': '4px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+input[type=number] {
+-moz-appearance: textfield;
+}
+</style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<nav class="bg-white border-b border-gray-100">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16">
+<div class="flex items-center">
+<a href="#" class="font-['Pacifico'] text-2xl text-primary">logo</a>
+</div>
+<div class="flex items-center">
+<a href="https://websnowi.github.io/websnowi/#advertising" data-readdy="true" class="flex items-center text-gray-500 hover:text-primary">
+<i class="ri-arrow-left-line mr-2"></i>
+<span>Back to Pricing</span>
+</a>
+</div>
+</div>
+</div>
+</nav>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<div class="lg:col-span-2">
+<div class="bg-white rounded-xl shadow-sm p-8 mb-8">
+<h2 class="text-2xl font-bold text-gray-900 mb-6">Billing Information</h2>
+<form id="billingForm" class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+<input type="text" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+<input type="text" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+<input type="email" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+<input type="tel" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Address</label>
+<input type="text" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary mb-4">
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div>
+<input type="text" placeholder="City" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<input type="text" placeholder="State" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<input type="text" placeholder="ZIP Code" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+</div>
+</div>
+</form>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm p-8 mb-8">
+<h2 class="text-2xl font-bold text-gray-900 mb-6">Company Details</h2>
+<form id="companyForm" class="space-y-6">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Company Name</label>
+<input type="text" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Website URL</label>
+<input type="url" required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Company Size</label>
+<div class="relative">
+<select required class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary appearance-none pr-8">
+<option value="">Select company size</option>
+<option value="1-10">1-10 employees</option>
+<option value="11-50">11-50 employees</option>
+<option value="51-200">51-200 employees</option>
+<option value="201-500">201-500 employees</option>
+<option value="501+">501+ employees</option>
+</select>
+<div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+<i class="ri-arrow-down-s-line text-gray-400"></i>
+</div>
+</div>
+</div>
+</form>
+</div>
+
+<div class="bg-white rounded-xl shadow-sm p-8">
+<h2 class="text-2xl font-bold text-gray-900 mb-6">Payment Method</h2>
+<form id="paymentForm" class="space-y-6">
+<div class="space-y-4">
+<div class="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg cursor-pointer" onclick="selectPayment('card')">
+<input type="radio" name="payment" value="card" checked class="text-primary focus:ring-primary">
+<div class="flex items-center space-x-2">
+<i class="ri-bank-card-line text-xl text-gray-600"></i>
+<span class="font-medium text-gray-900">Credit Card</span>
+</div>
+</div>
+<div class="flex items-center space-x-4 p-4 border border-gray-200 rounded-lg cursor-pointer" onclick="selectPayment('paypal')">
+<input type="radio" name="payment" value="paypal" class="text-primary focus:ring-primary">
+<div class="flex items-center space-x-2">
+<i class="ri-paypal-fill text-xl text-[#00457C]"></i>
+<span class="font-medium text-gray-900">PayPal</span>
+</div>
+</div>
+</div>
+
+ <!-- Credit card form -->
+<div id="cardDetails" class="space-y-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Card Number</label>
+<div class="relative">
+<input type="text" required pattern="[0-9]{16}" maxlength="16" placeholder="1234 5678 9012 3456" class="w-full pl-4 pr-12 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+<i class="ri-secure-payment-line absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">Expiry Date</label>
+<input type="text" required pattern="[0-9]{2}/[0-9]{2}" maxlength="5" placeholder="MM/YY" class="w-full px-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+</div>
+<div>
+<label class="block text-sm font-medium text-gray-700 mb-2">CVV</label>
+<div class="relative">
+<input type="password" required pattern="[0-9]{3,4}" maxlength="4" placeholder="123" class="w-full pl-4 pr-12 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+<i class="ri-question-line absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 cursor-help" title="3 or 4 digit security code"></i>
+</div>
+</div>
+</div>
+</div>
+ <!-- Credit card form end-->
+<div class="flex items-center space-x-2">
+<input type="checkbox" required class="text-primary focus:ring-primary rounded">
+<label class="text-sm text-gray-600">I agree to the <a href="#" class="text-primary hover:underline">Terms of Service</a> and <a href="#" class="text-primary hover:underline">Privacy Policy</a></label>
+</div>
+</form>
+</div>
+</div>
+
+<div class="lg:col-span-1">
+<div class="bg-white rounded-xl shadow-sm p-8 sticky top-8">
+<h2 class="text-xl font-bold text-gray-900 mb-6">Order Summary</h2>
+<div class="space-y-4 mb-6">
+<div class="flex justify-between items-center">
+<span class="text-gray-600">Starter Plan</span>
+<span class="font-medium text-gray-900">$29.00</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-gray-600">Tax</span>
+<span class="font-medium text-gray-900">$2.90</span>
+</div>
+<div class="border-t border-gray-200 pt-4">
+<div class="flex justify-between items-center">
+<span class="font-medium text-gray-900">Total</span>
+<span class="font-bold text-gray-900">$31.90</span>
+</div>
+</div>
+</div>
+<div class="space-y-4 mb-6">
+<h3 class="font-medium text-gray-900">Plan Features:</h3>
+<ul class="space-y-2">
+<li class="flex items-center text-gray-600">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span>Basic listing placement</span>
+</li>
+<li class="flex items-center text-gray-600">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span>Monthly performance report</span>
+</li>
+<li class="flex items-center text-gray-600">
+<i class="ri-checkbox-circle-line text-green-500 mr-2"></i>
+<span>Email support</span>
+</li>
+</ul>
+</div>
+<button onclick="submitOrder()" class="!rounded-button w-full bg-primary text-white py-4 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Complete Purchase</button>
+</div>
+</div>
+</div>
+</main>
+<div id="successModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+<div class="bg-white rounded-xl p-8 max-w-md w-full mx-4">
+<div class="text-center">
+<div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+<i class="ri-checkbox-circle-line text-3xl text-green-500"></i>
+</div>
+<h3 class="text-xl font-bold text-gray-900 mb-2">Order Successful!</h3>
+<p class="text-gray-600 mb-6">Thank you for your purchase. You will receive a confirmation email shortly.</p>
+<button onclick="closeSuccessModal()" class="!rounded-button w-full bg-primary text-white py-3 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Continue</button>
+</div>
+</div>
+</div>
+
+<script>
+
+function selectPayment(method) {
+const cardDetails = document.getElementById('cardDetails, paypalDetails');
+cardDetails.style.display = method === 'card' ? 'block' : 'none';
+}
+
+function submitOrder() {
+const forms = ['billingForm', 'companyForm', 'paymentForm'];
+let isValid = true;
+
+forms.forEach(formId => {
+const form = document.getElementById(formId);
+if (!form.checkValidity()) {
+isValid = false;
+form.reportValidity();
+}
+});
+
+if (isValid) {
+document.getElementById('successModal').classList.remove('hidden');
+}
+}
+
+function closeSuccessModal() {
+document.getElementById('successModal').classList.add('hidden');
+window.location.href = 'https://readdy.ai/home/3b5bc2b9-4ae9-470b-9c4d-bb565d696381/56ec414c-cbfe-4a1a-b939-6a6fc647a10e';
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+const expiryInput = document.querySelector('input[placeholder="MM/YY"]');
+expiryInput.addEventListener('input', (e) => {
+let value = e.target.value.replace(/\D/g, '');
+if (value.length >= 2) {
+value = value.slice(0, 2) + '/' + value.slice(2);
+}
+e.target.value = value;
+});
+});
+</script>
+</body>
+</html>
