@@ -62,12 +62,9 @@ rounded p-4 md:p-0 transition-all duration-300 ease-in-out z-50">
 </div>
 </div>
 <div class="flex items-center space-x-4">
-<div class="flex items-center">
-<a href="https://websnowi.github.io/websnowi/#advertising" data-readdy="true" class="flex items-center text-gray-500 hover:text-primary">
-<i class="ri-arrow-left-line mr-2"></i>
-<span>Back to Pricing</span>
+<a href="https://websnowi.github.io/websnowi/sign-in" data-readdy="true">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Sign In</button>
 </a>
-</div>
 <button id="menu-toggle" class="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer">
 <i class="ri-menu-line text-xl"></i>
 </button>
@@ -75,24 +72,21 @@ rounded p-4 md:p-0 transition-all duration-300 ease-in-out z-50">
 </div>
 </div>
 <script>
-    document.getElementById("menu-toggle").addEventListener("click", function () {
+  document.getElementById("menu-toggle").addEventListener("click", function () {
     let menu = document.getElementById("nav-menu");
     menu.classList.toggle("hidden");
     menu.classList.toggle("flex");
-    });
+  });
 
-    // Close the menu when clicking on a link
-    document.querySelectorAll("#nav-menu .nav-link").forEach(link => {
+  // Close the menu when clicking on a link
+  document.querySelectorAll("#nav-menu .nav-link").forEach(link => {
     link.addEventListener("click", function () {
-        let menu = document.getElementById("nav-menu");
-        menu.classList.add("hidden");
-        menu.classList.remove("flex");
+      let menu = document.getElementById("nav-menu");
+      menu.classList.add("hidden");
+      menu.classList.remove("flex");
     });
-    });
+  });
 </script>
-</nav>
-</div>
-</div>
 </nav>
 <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
