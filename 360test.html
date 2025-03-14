@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>360° Interactive Booth</title>
+    
+    <style>
+        /* General Page Styles */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            text-align: center;
+        }
+
+        h1 {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+
+        /* 360 Viewer Container */
+        #panorama {
+            width: 100%;
+            height: 500px;
+            border: 2px solid #fff;
+            border-radius: 10px;
+            margin: 20px auto;
+            position: relative;
+        }
+
+        /* Hotspot Styles */
+        .hotspot {
+            position: absolute;
+            background: rgba(255, 0, 0, 0.7);
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .hotspot:hover {
+            background: rgba(255, 0, 0, 1);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>360° Interactive Booth</h1>
+
+    <!-- 360 Viewer Container -->
+    <canvas id="panorama"></canvas>
+
+    <!-- JavaScript Code for 360 Viewer -->
+    <script>
+        class PanoramaViewer {
+            constructor(canvasId, imageUrl) {
+                this.canvas = document.getElementById(canvasId);
+                this.ctx = this.canvas.getContext("2d");
+                this.image = new Image();
+                this.image.src = imageUrl;
+
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = 500;
+
+                this.yaw = 0;
+                this.dragging = false;
+                this.lastX = 0;
+
+                this.image.onload = () => {
+                    this.render();
+                };
+
+                this.canvas.addEventListener("mousedown", (e) => this.startDrag(e));
+                this.canvas.addEventListener("mousemove", (e) => this.drag(e));
+                this.canvas.addEventListener("mouseup", () => this.stopDrag());
+                this.canvas.addEventListener("mouseleave", () => this.stopDrag());
+                this.canvas.addEventListener("wheel", (e) => this.zoom(e));
+            }
+
+            startDrag(event) {
+                this.dragging = true;
+                this.lastX = event.clientX;
+            }
+
+            drag(event) {
+                if (!this.dragging) return;
+                let deltaX = event.clientX - this.lastX;
+                this.yaw += deltaX * 0.1;
+                this.lastX = event.clientX;
+                this.render();
+            }
+
+            stopDrag() {
+                this.dragging = false;
+            }
+
+            zoom(event) {
+                let zoomFactor = event.deltaY * -0.01;
+                this.canvas.width += zoomFactor * 50;
+                this.render();
+            }
+
+            render() {
+                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                let scaledWidth = this.image.width * (this.canvas.height / this.image.height);
+                let xOffset = (this.yaw % 360) * (scaledWidth / 360);
+
+                this.ctx.drawImage(this.image, -xOffset, 0, scaledWidth, this.canvas.height);
+                this.ctx.drawImage(this.image, -xOffset + scaledWidth, 0, scaledWidth, this.canvas.height);
+            }
+        }
+
+        // Initialize 360 Viewer with your booth image
+        const viewer = new PanoramaViewer("panorama", "https://websnowi.github.io/websnowi/Hero%20Image%20WS.svg");
+
+    </script>
+
+</body>
+</html>
