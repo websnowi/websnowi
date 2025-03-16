@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Tools Hub - Discover the Best AI Tools</title>
+<link rel="icon" type="image/svg+xml" href="Favicon WS.svg">
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.modal { display: none; }
+.modal.active { display: flex; }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+</style>
+<script>
+tailwind.config = {
+theme: {
+extend: {
+colors: {
+primary: '#6366f1',
+secondary: '#e9eeff'
+},
+borderRadius: {
+'none': '0px',
+'sm': '2px',
+DEFAULT: '4px',
+'md': '8px',
+'lg': '12px',
+'xl': '16px',
+'2xl': '20px',
+'3xl': '24px',
+'full': '9999px',
+'button': '4px'
+}
+}
+}
+}
+</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.nav-link.active { color: #5B21B6; }
+.nav-link.active::after {
+content: '';
+position: absolute;
+bottom: -2px;
+left: 0;
+width: 100%;
+height: 2px;
+background-color: #5B21B6;
+}
+.scroll-indicator {
+animation: bounce 2s infinite;
+}
+@keyframes bounce {
+0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+40% { transform: translateY(-10px); }
+60% { transform: translateY(-5px); }
+}
+.tool-card {
+transition: transform 0.3s ease;
+}
+.tool-card:hover {
+transform: translateY(-5px);
+}
+</style>
+</head>
+<body class="bg-white min-h-screen">
+<nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="flex justify-between h-16">
+<div class="container px-4 h-16 flex items-center justify-between">
+<a href="#" class="font-['Pacifico'] text-2xl text-primary">webSnowi</a>
+<div id="nav-menu" class="hidden md:flex flex-col md:flex-row items-left space-y-4 md:space-y-0 md:space-x-8 absolute md:static top-16 left-0 w-full md:w-auto md:bg-transparent bg-white/80 z-50 md:shadow-none rounded p-4 md:p-0 transition-all duration-300 ease-in-out z-50">
+<a href="https://websnowi.github.io/websnowi/tools" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">AI Tools</a>
+<a href="https://websnowi.github.io/websnowi/advertising" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">Advertising</a>
+<a href="https://websnowi.github.io/websnowi/about" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">About Us</a>
+<a href="https://websnowi.github.io/websnowi/contact" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">Contact</a>
+</div>
+</div>
+<div class="flex items-center space-x-4">
+<a href="https://websnowi.github.io/websnowi/sign-in">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Sign In</button>
+</a>
+<button id="menu-toggle" class="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer">
+<i class="ri-menu-line text-xl"></i>
+</button>
+</div>
+</div>
+</div>
+<script>
+document.getElementById("menu-toggle").addEventListener("click", function () {
+let menu = document.getElementById("nav-menu");
+menu.classList.toggle("hidden");
+menu.classList.toggle("flex");
+});
+
+// Close the menu when clicking on a link
+document.querySelectorAll("#nav-menu .nav-link").forEach(link => {
+link.addEventListener("click", function () {
+let menu = document.getElementById("nav-menu");
+menu.classList.add("hidden");
+menu.classList.remove("flex");
+});
+});
+</script>
+</nav>
+<section id="tools" class="py-20 bg-gray-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold text-gray-900 mb-4">Popular AI Tools</h2>
+<p class="text-xl text-gray-600">Find the perfect AI tool for your needs</p>
+</div>
+<div class="flex items-center justify-between mb-8">
+<div class="relative flex-1 max-w-lg">
+<input type="text" id="searchInput" placeholder="Search AI tools..." class="w-full pl-12 pr-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary" onkeyup="filterTools()">
+<i class="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+<script>
+function filterTools() {
+let input = document.getElementById('searchInput').value.toLowerCase();
+let tools = document.querySelectorAll('.tool-card');
+
+tools.forEach(tool => {
+let title = tool.querySelector('h3').innerText.toLowerCase();
+let description = tool.querySelector('p').innerText.toLowerCase();
+
+if (title.includes(input) || description.includes(input)) {
+tool.style.display = "block";
+} else {
+tool.style.display = "none";
+}
+});
+}
+</script>
+</div>
+
+<div class="ml-4 flex space-x-2">
+<div class="relative">
+<button id="filterBtn" class="!rounded-button px-4 py-2 text-sm font-medium bg-white border border-gray-200 hover:bg-gray-50 cursor-pointer whitespace-nowrap">
+<i class="ri-filter-3-line mr-2"></i>Filters
+</button>
+<div id="filterDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+<div class="p-4">
+<div class="mb-4">
+<h3 class="font-medium text-gray-900 mb-2">Category</h3>
+<div class="space-y-2">
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="chatbot">
+<span class="ml-2 text-gray-600">Chatbot</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="animation">
+<span class="ml-2 text-gray-600">Animation</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="website-gen">
+<span class="ml-2 text-gray-600">Website Gen</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="career">
+<span class="ml-2 text-gray-600">Career</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="color-picker">
+<span class="ml-2 text-gray-600">Color Pick</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="fonts">
+<span class="ml-2 text-gray-600">Fonts</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="image-gen">
+<span class="ml-2 text-gray-600">Image Gen</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="video-gen">
+<span class="ml-2 text-gray-600">Video Gen</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="writing">
+<span class="ml-2 text-gray-600">Writing</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="voice">
+<span class="ml-2 text-gray-600">Voice</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="analytics">
+<span class="ml-2 text-gray-600">Analytics</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="development">
+<span class="ml-2 text-gray-600">Development</span>
+</label>
+</div>
+</div>
+<div class="mb-4">
+<h3 class="font-medium text-gray-900 mb-2">Price Range</h3>
+<div class="space-y-2">
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="free">
+<span class="ml-2 text-gray-600">Free</span>
+</label>
+<label class="flex items-center">
+<input type="checkbox" class="form-checkbox text-primary rounded" value="paid">
+<span class="ml-2 text-gray-600">Paid</span>
+</label>
+</div>
+</div>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+const filterBtn = document.getElementById('filterBtn');
+const filterDropdown = document.getElementById('filterDropdown');
+const checkboxes = filterDropdown.querySelectorAll('input[type="checkbox"]');
+
+// Toggle filter dropdown
+filterBtn.addEventListener('click', function(e) {
+e.stopPropagation();
+filterDropdown.classList.toggle('hidden');
+});
+
+// Close dropdown when clicking outside
+document.addEventListener('click', function(e) {
+if (!filterDropdown.contains(e.target) && e.target !== filterBtn) {
+filterDropdown.classList.add('hidden');
+}
+});
+
+// Listen for filter changes
+checkboxes.forEach(checkbox => {
+checkbox.addEventListener('change', function() {
+applyFilters();
+});
+});
+
+function applyFilters() {
+const selectedFilters = {
+categories: [],
+priceRange: []
+};
+
+// Collect selected filters
+checkboxes.forEach(checkbox => {
+if (checkbox.checked) {
+if (['chatbot', 'image-gen', 'writing', 'voice', 'analytics', 'development', 'website-gen', 'career', 'video-gen', 'color-picker', 'fonts', 'animation'].includes(checkbox.value)) {
+selectedFilters.categories.push(checkbox.value);
+} else if (['free', 'paid'].includes(checkbox.value)) {
+selectedFilters.priceRange.push(checkbox.value);
+}
+}
+});
+
+// Filter tool cards
+
+const toolCards = document.querySelectorAll('.tool-card');
+
+toolCards.forEach(card => {
+
+const category = card.getAttribute('data-category');
+const price = card.getAttribute('data-price'); // Ensure the card has data-price="free" or "paid"
+
+
+const matchesCategory = (selectedFilters.categories.length === 0 || selectedFilters.categories.includes(category));
+const matchesPrice = (selectedFilters.priceRange.length === 0 || selectedFilters.priceRange.includes(price));
+
+const shouldShow = matchesCategory && matchesPrice;
+
+card.style.display = shouldShow ? 'block' : 'none';
+});
+
+console.log('Applied filters:', selectedFilters);
+}
+});
+</script>
+</div>
+</div>
+<script>
+function copyLink(button) {
+const toolCard = button.closest('.tool-card');
+const link = toolCard.querySelector('a')?.href; 
+
+if (link) {
+navigator.clipboard.writeText(link).then(() => {
+const tooltip = button.querySelector(".copy-tooltip");
+tooltip.classList.remove("opacity-0", "invisible");
+tooltip.classList.add("opacity-100", "visible");
+
+setTimeout(() => {
+tooltip.classList.remove("opacity-100", "visible");
+tooltip.classList.add("opacity-0", "invisible");
+}, 2000);
+}).catch(err => console.error("Failed to copy:", err));
+}
+}
+</script>
+<script>
+function handleFavorite(button) {
+// Check if user is signed in (replace this condition with your actual authentication check)
+const isSignedIn = Boolean(localStorage.getItem("user_signed_in")); 
+
+if (isSignedIn) {
+// Toggle heart icon (fill red if liked)
+const icon = button.querySelector("i");
+if (icon.classList.contains("ri-heart-line")) {
+icon.classList.remove("ri-heart-line");
+icon.classList.add("ri-heart-fill", "text-red-500");
+} else {
+icon.classList.remove("ri-heart-fill", "text-red-500");
+icon.classList.add("ri-heart-line");
+}
+} else {
+// Redirect to sign-in page
+window.location.href = "https://websnowi.github.io/websnowi/sign-in";
+}
+}
+</script>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="website-gen">
+<img src="https://websnowi.github.io/websnowi/readdy-image-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">readdy.ai</h3>
+<span class="px-3 py-1 text-xs font-medium bg-violet-100 text-purple-800 rounded-full">Website Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Create stunning website with AI-powered Website Generator</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://readdy.ai/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="career">
+<img src="https://websnowi.github.io/websnowi/roadmap.sh-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">roadmap.sh</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-900 text-blue-100 rounded-full">Career</span>
+</div>
+<p class="text-gray-600 mb-4">Your Guide to Navigating the Developer Journey!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://roadmap.sh/befriend?u=67d66550187996bfbaceb197" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="video-gen">
+<img src="https://websnowi.github.io/websnowi/vidu-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">Vidu</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-200 text-blue-500 rounded-full">Video Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Create Stunning AI-Generated Videos in Seconds!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.vidu.com/?utm_source=referral&utm_medium=invitefriends&utm_campaign=long_term&utm_term=hDywbyZsoQA3tuv5&utm_content=/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="career">
+<img src="https://websnowi.github.io/websnowi/coddy.tech-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">coddy.tech</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-900 text-blue-100 rounded-full">Career</span>
+</div>
+<p class="text-gray-600 mb-4">Code with Confidence AI-Powered Support Anytime, Anywhere!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://coddy.tech/?ref=ntG1iN" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="website-gen">
+<img src="https://websnowi.github.io/websnowi/bolt.new-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">bolt.new</h3>
+<span class="px-3 py-1 text-xs font-medium bg-violet-100 text-purple-800 rounded-full">Website Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Build Anything Website Prompt, Code, Deploy with Ease!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://bolt.new/?rid=31o5ud" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="image-gen">
+<img src="https://websnowi.github.io/websnowi/freepik-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">freepik</h3>
+<span class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Image Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Your All-in-One AI Creative Suite High-Quality Visuals, Effortlessly!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.freepik.com/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="color-picker">
+<img src="https://websnowi.github.io/websnowi/realtimecolors-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">realtimecolors</h3>
+<span class="px-3 py-1 text-xs font-medium bg-green-300 text-green-800 rounded-full">Color Pick</span>
+</div>
+<p class="text-gray-600 mb-4">See Your Colors & Fonts Come to Life. Try Them on a Real Site!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.realtimecolors.com/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="image-gen">
+<img src="https://websnowi.github.io/websnowi/pngmaker-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">pngmaker</h3>
+<span class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Image Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Turn Text into Transparent PNGs Fast, Easy, and Customizable!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://pngmaker.io/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="image-gen">
+<img src="https://websnowi.github.io/websnowi/tinywow-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">tinywow</h3>
+<span class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Image Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Free Online Tools to Simplify Business, Life & Education!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://tinywow.com/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="website-gen">
+<img src="https://websnowi.github.io/websnowi/websim-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">websim.ai</h3>
+<span class="px-3 py-1 text-xs font-medium bg-violet-100 text-purple-800 rounded-full">Website Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Effortless Website Creation with AI!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://websim.ai/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="animation">
+<img src="https://websnowi.github.io/websnowi/jitter.video-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">jitter.video</h3>
+<span class="px-3 py-1 text-xs font-medium bg-yellow-900 text-yellow-100 rounded-full">Animation</span>
+</div>
+<p class="text-gray-600 mb-4">Create Stunning Animated Content for UI, Videos, and More!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://jitter.video/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="fonts">
+<img src="https://websnowi.github.io/websnowi/freeface.gallery-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">freeface.gallery</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-800 text-blue-100 rounded-full">Fonts</span>
+</div>
+<p class="text-gray-600 mb-4">Discover Free Fonts – A Curated Collection of Open-Source Typefaces!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.freefaces.gallery/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="development">
+<img src="https://websnowi.github.io/websnowi/daisyui-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">daisyui</h3>
+<span class="px-3 py-1 text-xs font-medium bg-purple-600 text-purple-100 rounded-full">Development</span>
+</div>
+<p class="text-gray-600 mb-4">Build Beautiful Websites DaisyUI Enhances Tailwind with Customizable Colors!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://daisyui.com/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="career">
+<img src="https://websnowi.github.io/websnowi/novoresume-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">novoresume</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-900 text-blue-100 rounded-full">Career</span>
+</div>
+<p class="text-gray-600 mb-4">Build Your Resume for Free, No Strings Attached!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://novoresume.com/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="animation">
+<img src="https://websnowi.github.io/websnowi/meshy.ai.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">meshy.ai</h3>
+<span class="px-3 py-1 text-xs font-medium bg-yellow-900 text-yellow-100 rounded-full">Animation</span>
+</div>
+<p class="text-gray-600 mb-4">The #1 AI 3D Model Generator Powering Creators & Game Developers!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.meshy.ai/?utm_source=referral-program&utm_medium=link&utm_content=Q85L5V" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="image-gen">
+<img src="https://websnowi.github.io/websnowi/apob-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">apob.ai</h3>
+<span class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Image Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Free Online Tools to Simplify Business, Life & Education!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://app.apob.ai/?via=websnowi" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="career">
+<img src="https://websnowi.github.io/websnowi/glob.engineer-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">globe.engineer</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-900 text-blue-100 rounded-full">Career</span>
+</div>
+<p class="text-gray-600 mb-4">Your AI-Powered Search Discovery Engine for Visual Learning!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.globe.engineer/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="website-gen">
+<img src="https://websnowi.github.io/websnowi/relume.io-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">relume.io</h3>
+<span class="px-3 py-1 text-xs font-medium bg-violet-100 text-purple-800 rounded-full">Website Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Design and Build Websites Faster with AI-Powered Precision!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<div class="relative inline-block">
+<a href="https://www.relume.io?utm_source=referral&referralCode=a4d967d8" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">
+Try Now
+</button>
+</a>
+<span class="absolute -bottom-4 right-0 bg-green-500 text-white text-[10px] font-bold px-2 py-[2px] rounded">
+50% OFF
+</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="animation">
+<img src="https://websnowi.github.io/websnowi/unicorn.studio-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">unicorn.studio</h3>
+<span class="px-3 py-1 text-xs font-medium bg-yellow-900 text-yellow-100 rounded-full">Animation</span>
+</div>
+<p class="text-gray-600 mb-4">Make Your Site Dazzle No-Code WebGL Effects & Motion!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.unicorn.studio/" target="_blank">
+<button class="!rounded-button bg-gray-200 text-white px-4 py-2 text-sm font-medium hover:bg-gray/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="career">
+<img src="https://websnowi.github.io/websnowi/shepherd.study-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">shepherd.study</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-900 text-blue-100 rounded-full">Career</span>
+</div>
+<p class="text-gray-600 mb-4">AI-Powered Learning & Tutoring for Students!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.shepherd.study/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+</section>
+<footer class="bg-gray-900 text-white py-12">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<a href="#" class="font-['Pacifico'] text-2xl text-white">webSnowi</a>
+<p class="mt-4 text-gray-400">Discover and explore the best AI tools for your needs.</p>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+<ul class="space-y-2">
+<li><a href="https://websnowi.github.io/websnowi/" class="text-gray-400 hover:text-white">Home</a></li>
+<li><a href="https://websnowi.github.io/websnowi/#tools" class="text-gray-400 hover:text-white">AI Tools</a></li>
+<li><a href="https://websnowi.github.io/websnowi/#advertising" class="text-gray-400 hover:text-white">Advertising</a></li>
+<li><a href="https://websnowi.github.io/websnowi/#about" class="text-gray-400 hover:text-white">About Us</a></li>
+<li><a href="https://websnowi.github.io/websnowi/#contact" class="text-gray-400 hover:text-white">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">Legal</h4>
+<ul class="space-y-2">
+<li><a href="https://websnowi.github.io/websnowi/privacy-policy" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+<li><a href="https://websnowi.github.io/websnowi/terms-of-service" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+<li><a href="https://websnowi.github.io/websnowi/cookie-policy" class="text-gray-400 hover:text-white">Cookie Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">Newsletter</h4>
+<p class="text-gray-400 mb-4">Subscribe to our newsletter for the latest updates.</p>
+<form class="flex">
+<input type="email" placeholder="Enter your email" class="flex-1 px-4 py-2 text-sm text-gray-900 rounded-l-lg focus:outline-none">
+<button type="submit" class="!rounded-r-lg bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90">Subscribe</button>
+</form>
+</div>
+</div>
+<div class="border-t border-gray-800 mt-12 pt-8 text-center">
+<p class="text-gray-400">&copy; 2024 AI Tools Hub. All rights reserved.</p>
+</div>
+</div>
+</footer>
+</body>
+</html>
