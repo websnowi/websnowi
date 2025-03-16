@@ -12,15 +12,15 @@
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
 <style>
-    :where([class^="ri-"])::before { content: "\f3c2"; }
-    .modal { display: none; }
-    .modal.active { display: flex; }
-    input[type="number"]::-webkit-inner-spin-button,
-    input[type="number"]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-    }
-    </style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+.modal { display: none; }
+.modal.active { display: flex; }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+</style>
 <script>
 tailwind.config = {
 theme: {
@@ -79,10 +79,7 @@ transform: translateY(-5px);
 <div class="flex justify-between h-16">
 <div class="container px-4 h-16 flex items-center justify-between">
 <a href="#" class="font-['Pacifico'] text-2xl text-primary">webSnowi</a>
-<div id="nav-menu" class="hidden md:flex flex-col md:flex-row items-left space-y-4 md:space-y-0 md:space-x-8 
-absolute md:static top-16 left-0 w-full md:w-auto 
-bg-white/80 md:bg-transparent white/80 backdrop-blur-md z-50 shadow-lg md:shadow-none 
-rounded p-4 md:p-0 transition-all duration-300 ease-in-out z-50">
+<div id="nav-menu" class="hidden md:flex flex-col md:flex-row items-left space-y-4 md:space-y-0 md:space-x-8 absolute md:static top-16 left-0 w-full md:w-auto md:bg-transparent bg-white/80 z-50 md:shadow-none rounded p-4 md:p-0 transition-all duration-300 ease-in-out z-50">
 <a href="#tools" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">AI Tools</a>
 <a href="#advertising" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">Advertising</a>
 <a href="#about" class="nav-link relative px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary transition-colors">About Us</a>
@@ -90,7 +87,7 @@ rounded p-4 md:p-0 transition-all duration-300 ease-in-out z-50">
 </div>
 </div>
 <div class="flex items-center space-x-4">
-<a href="https://websnowi.github.io/websnowi/sign-in" data-readdy="true">
+<a href="https://websnowi.github.io/websnowi/sign-in">
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Sign In</button>
 </a>
 <button id="menu-toggle" class="md:hidden w-10 h-10 flex items-center justify-center cursor-pointer">
@@ -100,20 +97,20 @@ rounded p-4 md:p-0 transition-all duration-300 ease-in-out z-50">
 </div>
 </div>
 <script>
-  document.getElementById("menu-toggle").addEventListener("click", function () {
-    let menu = document.getElementById("nav-menu");
-    menu.classList.toggle("hidden");
-    menu.classList.toggle("flex");
-  });
+document.getElementById("menu-toggle").addEventListener("click", function () {
+let menu = document.getElementById("nav-menu");
+menu.classList.toggle("hidden");
+menu.classList.toggle("flex");
+});
 
-  // Close the menu when clicking on a link
-  document.querySelectorAll("#nav-menu .nav-link").forEach(link => {
-    link.addEventListener("click", function () {
-      let menu = document.getElementById("nav-menu");
-      menu.classList.add("hidden");
-      menu.classList.remove("flex");
-    });
-  });
+// Close the menu when clicking on a link
+document.querySelectorAll("#nav-menu .nav-link").forEach(link => {
+link.addEventListener("click", function () {
+let menu = document.getElementById("nav-menu");
+menu.classList.add("hidden");
+menu.classList.remove("flex");
+});
+});
 </script>
 </nav>
 <main class="pt-16">
@@ -150,8 +147,25 @@ Submit Your Tool
 </div>
 <div class="flex items-center justify-between mb-8">
 <div class="relative flex-1 max-w-lg">
-<input type="text" placeholder="Search AI tools..." class="w-full pl-12 pr-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+<input type="text" id="searchInput" placeholder="Search AI tools..." class="w-full pl-12 pr-4 py-3 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary" onkeyup="filterTools()">
 <i class="ri-search-line absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+<script>
+function filterTools() {
+let input = document.getElementById('searchInput').value.toLowerCase();
+let tools = document.querySelectorAll('.tool-card');
+
+tools.forEach(tool => {
+let title = tool.querySelector('h3').innerText.toLowerCase();
+let description = tool.querySelector('p').innerText.toLowerCase();
+
+if (title.includes(input) || description.includes(input)) {
+tool.style.display = "block";
+} else {
+tool.style.display = "none";
+}
+});
+}
+</script>
 </div>
 <div class="ml-4 flex space-x-2">
 <div class="relative">
@@ -161,22 +175,58 @@ Submit Your Tool
 <div id="filterDropdown" class="hidden absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
 <div class="p-4">
 <div class="mb-4">
-<h3 class="font-medium text-gray-900 mb-2">Category</h3>
-<div class="space-y-2">
-<label class="flex items-center">
-<input type="checkbox" class="form-checkbox text-primary rounded" value="chatbot">
-<span class="ml-2 text-gray-600">Chatbot</span>
-</label>
-<label class="flex items-center">
-<input type="checkbox" class="form-checkbox text-primary rounded" value="image-gen">
-<span class="ml-2 text-gray-600">Image Gen</span>
-</label>
-<label class="flex items-center">
-<input type="checkbox" class="form-checkbox text-primary rounded" value="writing">
-<span class="ml-2 text-gray-600">Writing</span>
-</label>
-</div>
-</div>
+    <h3 class="font-medium text-gray-900 mb-2">Category</h3>
+    <div class="space-y-2">
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="chatbot">
+    <span class="ml-2 text-gray-600">Chatbot</span>
+    </label>
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="animation">
+    <span class="ml-2 text-gray-600">Animation</span>
+    </label>
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="website-gen">
+    <span class="ml-2 text-gray-600">Website Gen</span>
+    </label>
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="career">
+    <span class="ml-2 text-gray-600">Career</span>
+    </label>
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="color-picker">
+    <span class="ml-2 text-gray-600">Color Pick</span>
+    </label>
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="fonts">
+    <span class="ml-2 text-gray-600">Fonts</span>
+    </label>
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="image-gen">
+    <span class="ml-2 text-gray-600">Image Gen</span>
+    </label>
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="video-gen">
+    <span class="ml-2 text-gray-600">Video Gen</span>
+    </label>
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="writing">
+    <span class="ml-2 text-gray-600">Writing</span>
+    </label>
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="voice">
+    <span class="ml-2 text-gray-600">Voice</span>
+    </label>
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="analytics">
+    <span class="ml-2 text-gray-600">Analytics</span>
+    </label>
+    <label class="flex items-center">
+    <input type="checkbox" class="form-checkbox text-primary rounded" value="development">
+    <span class="ml-2 text-gray-600">Development</span>
+    </label>
+    </div>
+    </div>
 <div class="mb-4">
 <h3 class="font-medium text-gray-900 mb-2">Price Range</h3>
 <div class="space-y-2">
@@ -239,7 +289,7 @@ features: []
 };
 checkboxes.forEach(checkbox => {
 if (checkbox.checked) {
-if (['chatbot', 'image-gen', 'writing'].includes(checkbox.value)) {
+if (['chatbot', 'image-gen', 'writing', 'voice', 'analytics', 'development', 'website-gen', 'career', 'video-gen', 'color-picker', 'fonts', 'animation'].includes(checkbox.value)) {
 selectedFilters.categories.push(checkbox.value);
 } else if (['free', 'paid'].includes(checkbox.value)) {
 selectedFilters.priceRange.push(checkbox.value);
@@ -251,221 +301,234 @@ selectedFilters.features.push(checkbox.value);
 }
 });
 // Here you would typically update the UI based on selected filters
-console.log('Applied filters:', selectedFilters);
-}
-});
-</script>
-<div class="relative">
-<button id="sortBtn" class="!rounded-button px-4 py-2 text-sm font-medium bg-white border border-gray-200 hover:bg-gray-50 cursor-pointer whitespace-nowrap">
-<i class="ri-sort-desc-line mr-2"></i>Sort
-</button>
-<div id="sortDropdown" class="hidden absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-<div class="py-2">
-<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 cursor-pointer" data-sort="popular">Most Popular</button>
-<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 cursor-pointer" data-sort="rating">Highest Rated</button>
-<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 cursor-pointer" data-sort="newest">Newest First</button>
-<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 cursor-pointer" data-sort="price-low">Price: Low to High</button>
-<button class="w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-50 cursor-pointer" data-sort="price-high">Price: High to Low</button>
-</div>
-</div>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-const sortBtn = document.getElementById('sortBtn');
-const sortDropdown = document.getElementById('sortDropdown');
-const sortOptions = sortDropdown.querySelectorAll('button');
-sortBtn.addEventListener('click', function(e) {
-e.stopPropagation();
-sortDropdown.classList.toggle('hidden');
-});
-document.addEventListener('click', function(e) {
-if (!sortDropdown.contains(e.target) && e.target !== sortBtn) {
-sortDropdown.classList.add('hidden');
-}
-});
-sortOptions.forEach(option => {
-option.addEventListener('click', function() {
-const sortType = this.dataset.sort;
 const toolCards = document.querySelectorAll('.tool-card');
-const toolsContainer = toolCards[0].parentElement;
-const sortedCards = Array.from(toolCards).sort((a, b) => {
-switch(sortType) {
-case 'popular':
-const reviewsA = parseInt(a.querySelector('.text-gray-500').textContent);
-const reviewsB = parseInt(b.querySelector('.text-gray-500').textContent);
-return reviewsB - reviewsA;
-case 'rating':
-const ratingA = parseFloat(a.querySelector('.text-sm.font-medium').textContent);
-const ratingB = parseFloat(b.querySelector('.text-sm.font-medium').textContent);
-return ratingB - ratingA;
-case 'newest':
-return Math.random() - 0.5; // Simulated random sorting for demo
-case 'price-low':
-return Math.random() - 0.5; // Simulated random sorting for demo
-case 'price-high':
-return Math.random() - 0.5; // Simulated random sorting for demo
-default:
-return 0;
+
+toolCards.forEach(card => {
+const category = card.querySelector('span').textContent.toLowerCase();
+const shouldShow = (
+(selectedFilters.categories.length === 0 || selectedFilters.categories.includes(category))
+);
+
+card.style.display = shouldShow ? 'block' : 'none';
+});
 }
-});
-sortedCards.forEach(card => toolsContainer.appendChild(card));
-sortDropdown.classList.add('hidden');
-});
-});
+console.log('Applied filters:', selectedFilters);
 });
 </script>
+<script>
+function copyLink(button) {
+const toolCard = button.closest('.tool-card');
+const link = toolCard.querySelector('a')?.href; 
+
+if (link) {
+navigator.clipboard.writeText(link).then(() => {
+const tooltip = button.querySelector(".copy-tooltip");
+tooltip.classList.remove("opacity-0", "invisible");
+tooltip.classList.add("opacity-100", "visible");
+
+setTimeout(() => {
+tooltip.classList.remove("opacity-100", "visible");
+tooltip.classList.add("opacity-0", "invisible");
+}, 2000);
+}).catch(err => console.error("Failed to copy:", err));
+}
+}
+</script>
+<script>
+function handleFavorite(button) {
+// Check if user is signed in (replace this condition with your actual authentication check)
+const isSignedIn = Boolean(localStorage.getItem("user_signed_in")); 
+
+if (isSignedIn) {
+// Toggle heart icon (fill red if liked)
+const icon = button.querySelector("i");
+if (icon.classList.contains("ri-heart-line")) {
+icon.classList.remove("ri-heart-line");
+icon.classList.add("ri-heart-fill", "text-red-500");
+} else {
+icon.classList.remove("ri-heart-fill", "text-red-500");
+icon.classList.add("ri-heart-line");
+}
+} else {
+// Redirect to sign-in page
+window.location.href = "https://websnowi.github.io/websnowi/sign-in";
+}
+}
+</script>
+
 </div>
 </div>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden">
-<img src="https://public.readdy.ai/ai/img_res/5370ece9113157cc280066b7b0207ecc.jpg" alt="AI Chatbot" class="w-full h-48 object-cover">
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="website-gen">
+<img src="https://websnowi.github.io/websnowi/readdy-image-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
 <div class="p-6">
 <div class="flex items-center justify-between mb-4">
-<h3 class="text-xl font-semibold text-gray-900">SmartChat AI</h3>
-<span class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-800 rounded-full">Chatbot</span>
+<h3 class="text-xl font-semibold text-gray-900">readdy.ai</h3>
+<span class="px-3 py-1 text-xs font-medium bg-violet-100 text-purple-800 rounded-full">Website Gen</span>
 </div>
-<p class="text-gray-600 mb-4">Advanced conversational AI for customer support and engagement</p>
+<p class="text-gray-600 mb-4">Create stunning website with AI-powered Website Generator</p>
 <div class="flex items-center justify-between">
 <div class="flex items-center">
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
 <i class="ri-heart-line"></i>
 </button>
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
 <i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
 </button>
 </div>
+<a href="https://readdy.ai/" target="_blank">
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
 </div>
 </div>
 </div>
-<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden">
-<img src="https://public.readdy.ai/ai/img_res/183fd7dbce10935d0e4dbb4c95b75c5b.jpg" alt="AI Image Generator" class="w-full h-48 object-cover">
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="career">
+<img src="https://websnowi.github.io/websnowi/roadmap.sh-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
 <div class="p-6">
 <div class="flex items-center justify-between mb-4">
-<h3 class="text-xl font-semibold text-gray-900">ArtifyAI</h3>
-<span class="px-3 py-1 text-xs font-medium bg-purple-100 text-purple-800 rounded-full">Image Gen</span>
+<h3 class="text-xl font-semibold text-gray-900">roadmap.sh</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-900 text-blue-100 rounded-full">Career</span>
 </div>
-<p class="text-gray-600 mb-4">Create stunning artwork with AI-powered image generation</p>
+<p class="text-gray-600 mb-4">Your Guide to Navigating the Developer Journey!</p>
 <div class="flex items-center justify-between">
 <div class="flex items-center">
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
 <i class="ri-heart-line"></i>
 </button>
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
 <i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
 </button>
 </div>
+<a href="https://roadmap.sh/befriend?u=67d66550187996bfbaceb197" target="_blank">
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
 </div>
 </div>
 </div>
-<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden">
-<img src="https://public.readdy.ai/ai/img_res/21a3ebb44423257372abdb0697d52080.jpg" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="website-gen">
+<img src="https://websnowi.github.io/websnowi/relume.io-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
 <div class="p-6">
 <div class="flex items-center justify-between mb-4">
-<h3 class="text-xl font-semibold text-gray-900">WriteGenius</h3>
-<span class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Writing</span>
+<h3 class="text-xl font-semibold text-gray-900">relume.io</h3>
+<span class="px-3 py-1 text-xs font-medium bg-violet-100 text-purple-800 rounded-full">Website Gen</span>
 </div>
-<p class="text-gray-600 mb-4">AI-powered writing assistant for perfect content every time</p>
+<p class="text-gray-600 mb-4">Design and Build Websites Faster with AI-Powered Precision!</p>
 <div class="flex items-center justify-between">
 <div class="flex items-center">
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
 <i class="ri-heart-line"></i>
 </button>
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
 <i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
 </button>
 </div>
+<div class="relative inline-block">
+<a href="https://www.relume.io?utm_source=referral&referralCode=a4d967d8" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">
+Try Now
+</button>
+</a>
+<span class="absolute -bottom-4 right-0 bg-green-500 text-white text-[10px] font-bold px-2 py-[2px] rounded">
+50% OFF
+</span>
+</div>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="video-gen">
+<img src="https://websnowi.github.io/websnowi/vidu-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">Vidu</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-200 text-blue-500 rounded-full">Video Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Create Stunning AI-Generated Videos in Seconds!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.vidu.com/?utm_source=referral&utm_medium=invitefriends&utm_campaign=long_term&utm_term=hDywbyZsoQA3tuv5&utm_content=/" target="_blank">
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
 </div>
 </div>
 </div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="career">
+<img src="https://websnowi.github.io/websnowi/coddy.tech-ws.png" alt="AI Writing Assistant" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">coddy.tech</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-900 text-blue-100 rounded-full">Career</span>
+</div>
+<p class="text-gray-600 mb-4">Code with Confidence AI-Powered Support Anytime, Anywhere!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://coddy.tech/?ref=ntG1iN" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="website-gen">
+<img src="https://websnowi.github.io/websnowi/bolt.new-ws.png" alt="AI Image Generator" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">bolt.new</h3>
+<span class="px-3 py-1 text-xs font-medium bg-violet-100 text-purple-800 rounded-full">Website Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Build Anything Website Prompt, Code, Deploy with Ease!</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://bolt.new/?rid=31o5ud" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
 </div>
 <div class="text-center mt-12">
+<a href="https://websnowi.github.io/websnowi/ai-tools">
 <button id="loadMoreBtn" class="!rounded-button bg-white border border-gray-200 text-gray-700 px-6 py-3 text-sm font-medium hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap flex items-center gap-2">
 <span>Load More Tools</span>
 <div id="loadingSpinner" class="hidden">
 <div class="animate-spin rounded-full h-4 w-4 border-2 border-primary border-t-transparent"></div>
 </div>
 </button>
-<script>
-const toolsData = [
-{
-name: "VoiceAI Pro",
-category: "Voice",
-categoryColor: "blue",
-description: "Professional voice synthesis and modulation platform",
-rating: 4.6,
-reviews: "1.9k",
-image: "https://public.readdy.ai/ai/img_res/a714094fc729a91e887c6edb1a9b8839.jpg"
-},
-{
-name: "DataMind",
-category: "Analytics",
-categoryColor: "indigo",
-description: "AI-powered data analytics and visualization tool",
-rating: 4.7,
-reviews: "2.1k",
-image: "https://public.readdy.ai/ai/img_res/6e3891f635208975881e906e19222ddc.jpg"
-},
-{
-name: "CodeAssist",
-category: "Development",
-categoryColor: "emerald",
-description: "Intelligent code completion and optimization assistant",
-rating: 4.8,
-reviews: "2.3k",
-image: "https://public.readdy.ai/ai/img_res/13f6103b7214abc8c30ad74dd3fce368.jpg"
-}
-];
-let currentPage = 1;
-const loadMoreBtn = document.getElementById('loadMoreBtn');
-const loadingSpinner = document.getElementById('loadingSpinner');
-const toolsContainer = document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3.gap-8');
-loadMoreBtn.addEventListener('click', async () => {
-loadMoreBtn.disabled = true;
-loadingSpinner.classList.remove('hidden');
-await new Promise(resolve => setTimeout(resolve, 1000));
-const newTools = toolsData.map(tool => `
-<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden opacity-0 transform translate-y-4 transition-all duration-500">
-<img src="${tool.image}" alt="${tool.name}" class="w-full h-48 object-cover">
-<div class="p-6">
-<div class="flex items-center justify-between mb-4">
-<h3 class="text-xl font-semibold text-gray-900">${tool.name}</h3>
-<span class="px-3 py-1 text-xs font-medium bg-${tool.categoryColor}-100 text-${tool.categoryColor}-800 rounded-full">${tool.category}</span>
-</div>
-<p class="text-gray-600 mb-4">${tool.description}</p>
-<div class="flex items-center justify-between">
-<div class="flex items-center">
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
-<i class="ri-heart-line"></i>
-</button>
-<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
-<i class="ri-share-line"></i>
-</button>
-</div>
-<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
-</div>
-</div>
-</div>
-`).join('');
-toolsContainer.insertAdjacentHTML('beforeend', newTools);
-requestAnimationFrame(() => {
-const newCards = toolsContainer.querySelectorAll('.tool-card.opacity-0');
-newCards.forEach((card, index) => {
-setTimeout(() => {
-card.classList.remove('opacity-0', 'translate-y-4');
-}, index * 100);
-});
-});
-currentPage++;
-if(currentPage >= 3) {
-loadMoreBtn.style.display = 'none';
-}
-loadMoreBtn.disabled = false;
-loadingSpinner.classList.add('hidden');
-});
-</script>
+</a>
+
+
 </div>
 </div>
 </section>
@@ -498,7 +561,7 @@ loadingSpinner.classList.add('hidden');
 <span class="text-gray-600">Email support</span>
 </li>
 </ul>
-<a href="https://websnowi.github.io/websnowi/starter-pricing" data-readdy="true" class="block">
+<a href="https://websnowi.github.io/websnowi/starter-pricing" class="block">
 <button class="!rounded-button w-full bg-primary text-white py-3 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Get Started</button>
 </a>
 </div>
@@ -531,7 +594,7 @@ loadingSpinner.classList.add('hidden');
 <span class="text-gray-600">Featured in newsletter</span>
 </li>
 </ul>
-<a href="https://websnowi.github.io/websnowi/professional-pricing" data-readdy="true" class="block">
+<a href="https://websnowi.github.io/websnowi/professional-pricing" class="block">
 <button class="!rounded-button w-full bg-primary text-white py-3 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Get Started</button>
 </a>
 </div>
@@ -812,7 +875,7 @@ We envision a future where AI technology is accessible to everyone, empowering i
 </div>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-<img src="https://public.readdy.ai/ai/img_res/368db5153910526b7464ee9b4aa0719e.jpg" alt="Sarah Mitchell" class="w-full h-64 object-cover">
+<img src="https://websnowi.github.io/websnowi/sarah-mitchell-ws1.jpg" alt="Sarah Mitchell" class="w-full h-64 object-cover">
 <div class="p-6">
 <h4 class="text-xl font-semibold text-gray-900 mb-2">Sarah Mitchell</h4>
 <p class="text-gray-600 mb-4">Chief Executive Officer</p>
@@ -827,7 +890,7 @@ We envision a future where AI technology is accessible to everyone, empowering i
 </div>
 </div>
 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-<img src="https://public.readdy.ai/ai/img_res/5e1aeaea8d14b9f40e5a12dc4e15fc26.jpg" alt="David Chen" class="w-full h-64 object-cover">
+<img src="https://websnowi.github.io/websnowi/david-chen-ws1.jpg" alt="David Chen" class="w-full h-64 object-cover">
 <div class="p-6">
 <h4 class="text-xl font-semibold text-gray-900 mb-2">David Chen</h4>
 <p class="text-gray-600 mb-4">Chief Technology Officer</p>
@@ -842,7 +905,7 @@ We envision a future where AI technology is accessible to everyone, empowering i
 </div>
 </div>
 <div class="bg-white rounded-xl shadow-lg overflow-hidden">
-<img src="https://public.readdy.ai/ai/img_res/5854da63712236519603f242ea385b08.jpg" alt="Emily Rodriguez" class="w-full h-64 object-cover">
+<img src="https://websnowi.github.io/websnowi/emily-rodriguez-ws1.jpg" alt="Emily Rodriguez" class="w-full h-64 object-cover">
 <div class="p-6">
 <h4 class="text-xl font-semibold text-gray-900 mb-2">Emily Rodriguez</h4>
 <p class="text-gray-600 mb-4">Head of Product</p>
@@ -1075,86 +1138,86 @@ Our team thoroughly tests each AI tool before listing it on our platform. We ver
 </div>
 </footer>
 <script>
-    const canvas = document.getElementById('snow');
-    const ctx = canvas.getContext('2d');
-    let width = canvas.width = window.innerWidth;
-    let height = canvas.height = window.innerHeight;
-    
-    window.addEventListener('resize', () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    });
-    
-    const particles = [];
-    const properties = {
-      particleCount: 100,
-      particleRadius: 2,
-      maxSpeed: 1,
-      colors: ['#ffffff', '#f0f0f0']
-    };
-    
-    class Particle {
-      constructor() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.radius = Math.random() * properties.particleRadius;
-        this.speedY = Math.random() * properties.maxSpeed + 0.5;
-        this.speedX = Math.random() * 0.5 - 0.25;
-        this.color = properties.colors[Math.floor(Math.random() * properties.colors.length)];
-      }
-    
-      update() {
-        this.y += this.speedY;
-        this.x += this.speedX;
-    
-        if (this.y > height) {
-          this.y = 0;
-          this.x = Math.random() * width;
-        }
-      }
-    
-      draw() {
-        ctx.beginPath();
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fillStyle = this.color;
-        ctx.fill();
-      }
-    }
-    
-    for (let i = 0; i < properties.particleCount; i++) {
-      particles.push(new Particle());
-    }
-    
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      
-      particles.forEach(particle => {
-        particle.update();
-        particle.draw();
-      });
-      
-      requestAnimationFrame(animate);
-    }
-    
-    animate();
-    
-    const sortButton = document.getElementById('sortButton');
-    const sortDropdown = document.getElementById('sortDropdown');
-    sortButton.addEventListener('click', () => {
-    sortDropdown.classList.toggle('hidden');
-    });
-    document.addEventListener('click', (e) => {
-    if (!sortButton.contains(e.target)) {
-    sortDropdown.classList.add('hidden');
-    }
-    });
-    document.querySelectorAll('.ri-heart-line').forEach(heart => {
-    heart.addEventListener('click', function() {
-    this.classList.toggle('ri-heart-line');
-    this.classList.toggle('ri-heart-fill');
-    this.classList.toggle('text-red-500');
-    });
-    });
-    </script>
+const canvas = document.getElementById('snow');
+const ctx = canvas.getContext('2d');
+let width = canvas.width = window.innerWidth;
+let height = canvas.height = window.innerHeight;
+
+window.addEventListener('resize', () => {
+width = canvas.width = window.innerWidth;
+height = canvas.height = window.innerHeight;
+});
+
+const particles = [];
+const properties = {
+particleCount: 100,
+particleRadius: 2,
+maxSpeed: 1,
+colors: ['#ffffff', '#f0f0f0']
+};
+
+class Particle {
+constructor() {
+this.x = Math.random() * width;
+this.y = Math.random() * height;
+this.radius = Math.random() * properties.particleRadius;
+this.speedY = Math.random() * properties.maxSpeed + 0.5;
+this.speedX = Math.random() * 0.5 - 0.25;
+this.color = properties.colors[Math.floor(Math.random() * properties.colors.length)];
+}
+
+update() {
+this.y += this.speedY;
+this.x += this.speedX;
+
+if (this.y > height) {
+this.y = 0;
+this.x = Math.random() * width;
+}
+}
+
+draw() {
+ctx.beginPath();
+ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+ctx.fillStyle = this.color;
+ctx.fill();
+}
+}
+
+for (let i = 0; i < properties.particleCount; i++) {
+particles.push(new Particle());
+}
+
+function animate() {
+ctx.clearRect(0, 0, width, height);
+
+particles.forEach(particle => {
+particle.update();
+particle.draw();
+});
+
+requestAnimationFrame(animate);
+}
+
+animate();
+
+const sortButton = document.getElementById('sortButton');
+const sortDropdown = document.getElementById('sortDropdown');
+sortButton.addEventListener('click', () => {
+sortDropdown.classList.toggle('hidden');
+});
+document.addEventListener('click', (e) => {
+if (!sortButton.contains(e.target)) {
+sortDropdown.classList.add('hidden');
+}
+});
+document.querySelectorAll('.ri-heart-line').forEach(heart => {
+heart.addEventListener('click', function() {
+this.classList.toggle('ri-heart-line');
+this.classList.toggle('ri-heart-fill');
+this.classList.toggle('text-red-500');
+});
+});
+</script>
 </body>
 </html>
