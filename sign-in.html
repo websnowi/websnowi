@@ -10,6 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet"/>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script>
 tailwind.config = {
 theme: {
@@ -118,7 +119,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 </div>
 </div>
 <div class="grid grid-cols-2 gap-4">
-<button class="!rounded-button flex items-center justify-center px-4 py-3 border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap">
+<button id="googleSignIn" class="!rounded-button flex items-center justify-center px-4 py-3 border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap">
 <i class="ri-google-fill mr-2 text-red-500"></i>
 Google
 </button>
@@ -181,7 +182,7 @@ I agree to the <a href="#" class="text-primary hover:text-primary/80">Terms of S
 </div>
 </div>
 <div class="grid grid-cols-2 gap-4">
-<button class="!rounded-button flex items-center justify-center px-4 py-3 border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap">
+<button id="googleSignUp" class="!rounded-button flex items-center justify-center px-4 py-3 border border-gray-200 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors cursor-pointer whitespace-nowrap">
 <i class="ri-google-fill mr-2 text-red-500"></i>
 Google
 </button>
@@ -255,6 +256,60 @@ submitButton.textContent = originalText;
 }
 });
 });
+
+
+
+  // Load Google's API library
+function loadGoogleAPI() {
+    const script = document.createElement('script');
+    script.src = "https://accounts.google.com/gsi/client";
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+}
+
+// Initialize Google Sign-In
+function initGoogleSignIn() {
+    google.accounts.id.initialize({
+        client_id: "359098006828-arv6441fic7gtld7uk45bkcmo1hqdpb5.apps.googleusercontent.com",
+        callback: handleCredentialResponse
+    });
+
+    google.accounts.id.renderButton(
+        document.getElementById("googleSignUp"),
+        { theme: "outline", size: "large" }
+    );
+
+    google.accounts.id.renderButton(
+        document.getElementById("googleSignIn"),
+        { theme: "outline", size: "large" }
+    );
+
+    google.accounts.id.prompt();
+}
+
+// Handle the response from Google
+function handleCredentialResponse(response) {
+    console.log("Google credential response:", response);
+    const userInfo = decodeJwt(response.credential);
+    console.log("User info:", userInfo);
+}
+
+// Decode JWT token
+function decodeJwt(token) {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    const jsonPayload = decodeURIComponent(atob(base64).split('').map(c =>
+        '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+    ).join(''));
+    return JSON.parse(jsonPayload);
+}
+
+// Load and initialize everything
+loadGoogleAPI();
+window.onload = () => initGoogleSignIn();
+
+
 </script>
   <!-- Google Tag Manager (noscript) -->
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KDNBJDPF"
