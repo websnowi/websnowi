@@ -133,7 +133,7 @@ menu.classList.remove("flex");
 <section id="tools" class="py-20 bg-gray-50">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <div class="text-center mb-16">
-<h2 class="text-4xl font-bold text-gray-900 mb-4">Popular AI Tools</h2>
+<h2 class="text-4xl font-bold text-gray-900 mb-4">Popular <span id="tool-count">0</span> AI Tools</h2>
 <p class="text-xl text-gray-600">Find the perfect AI tool for your needs</p>
 </div>
 <div class="flex items-center justify-between mb-8">
@@ -1363,7 +1363,7 @@ Try Now
 </button>
 </div>
 <a href="https://www.hellorep.ai/" target="_blank">
-<button class="!rounded-button bg-gray-200 text-white px-4 py-2 text-sm font-medium hover:bg-gray/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
 </a>
 </div>
 </div>
@@ -2494,6 +2494,56 @@ Try Now
 </div>
 </div>
 
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="career">
+<img src="https://websnowi.github.io/websnowi/media/edx.org-ws.png" alt="edx.org" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">edx.org</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-900 text-blue-100 rounded-full">Career</span>
+</div>
+<p class="text-gray-600 mb-4">Join a Community, Earn Credentials from Top Institutions, and Access Career Support.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.edx.org/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="video-gen">
+<img src="https://websnowi.github.io/websnowi/media/imagineexplainers.com-ws.png" alt="imagineexplainers.com" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">imagineexplainers.com</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-200 text-blue-500 rounded-full">Video Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Create Animated Explainer Videos in Minutes with Imagine Explainers — Simple, Fast, and Effective.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://imagineexplainers.com/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
 <div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="development">
 <img src="https://websnowi.github.io/websnowi/media/manus.im-ws.png" alt="manus.im" class="w-full h-48 object-cover">
 <div class="p-6">
@@ -2563,6 +2613,31 @@ Try Now
 </button>
 </div>
 <a href="https://lexica.art/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="development">
+<img src="https://websnowi.github.io/websnowi/media/quickref.me-ws.png" alt="quickref.me" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">quickref.me</h3>
+<span class="px-3 py-1 text-xs font-medium bg-purple-600 text-purple-100 rounded-full">Development</span>
+</div>
+<p class="text-gray-600 mb-4">Quick Cheatsheets for Programming, Linux, Python, and Databases — from Open-Source Angels.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://quickref.me/" target="_blank">
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
 </a>
 </div>
@@ -2669,6 +2744,31 @@ Try Now
 </div>
 </div>
 
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="career">
+<img src="https://websnowi.github.io/websnowi/media/schoolgoat.com-ws.png" alt="schoolgoat.com" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">schoolgoat.com</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-900 text-blue-100 rounded-full">Career</span>
+</div>
+<p class="text-gray-600 mb-4">School GOAT Helps with Notes, Homework, Practice Tests, and More — Your All-In-One School Assistant.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.schoolgoat.com/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
 <div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="image-gen">
 <img src="https://websnowi.github.io/websnowi/media/visualelectric.com-ws.png" alt="visualelectric.com" class="w-full h-48 object-cover">
 <div class="p-6">
@@ -2744,6 +2844,31 @@ Try Now
 </div>
 </div>
 
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="career">
+<img src="https://websnowi.github.io/websnowi/media/rxresu.me-ws.png" alt="rxresu.me" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">rxresu.me</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-900 text-blue-100 rounded-full">Career</span>
+</div>
+<p class="text-gray-600 mb-4">A Free, Open-Source Resume Builder to Easily Create, Update, and Share Your Resume</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://rxresu.me/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
 <div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="chatbot">
 <img src="https://websnowi.github.io/websnowi/media/huggingface.co-ws.png" alt="huggingface.co" class="w-full h-48 object-cover">
 <div class="p-6">
@@ -2763,6 +2888,31 @@ Try Now
 </button>
 </div>
 <a href="https://huggingface.co/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="e-commerce">
+<img src="https://websnowi.github.io/websnowi/media/printify.com-ws.png" alt="printify.com" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">printify.com</h3>
+<span class="px-3 py-1 text-xs font-medium bg-green-800 text-green-100 rounded-full">Ecommerce</span>
+</div>
+<p class="text-gray-600 mb-4">Create and Sell Custom Products with $0 Upfront. Your Next Bestseller Starts Here.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://printify.com/" target="_blank">
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
 </a>
 </div>
@@ -2819,6 +2969,31 @@ Try Now
 </div>
 </div>
 
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="marketing">
+<img src="https://websnowi.github.io/websnowi/media/seoreviewtools.com-ws.png" alt="seoreviewtools.com" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">seoreviewtools.com</h3>
+<span class="px-3 py-1 text-xs font-medium bg-yellow-100 text-yellow-900 rounded-full">Marketing</span>
+</div>
+<p class="text-gray-600 mb-4">A Set of Real-Time SEO Tools to Analyze Your Site and Track Competitors — Fast, Accurate, and Easy</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.seoreviewtools.com/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
 <div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="chatbot">
 <img src="https://websnowi.github.io/websnowi/media/pi.ai-ws.png" alt="pi.ai" class="w-full h-48 object-cover">
 <div class="p-6">
@@ -2844,7 +3019,32 @@ Try Now
 </div>
 </div>
 
-<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="career">
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="image-gen">
+<img src="https://websnowi.github.io/websnowi/media/insmind.com-ws.png" alt="insmind.com" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">insmind.com</h3>
+<span class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Image Gen</span>
+</div>
+<p class="text-gray-600 mb-4">A Free Ai Photo Editor to Enhance Product Photos — Remove Backgrounds, Erase Objects, Generate Scenes</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.insmind.com/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="career">
 <img src="https://websnowi.github.io/websnowi/media/unstuckstudy.com-ws.png" alt="unstuckstudy.com" class="w-full h-48 object-cover">
 <div class="p-6">
 <div class="flex items-center justify-between mb-4">
@@ -2863,6 +3063,31 @@ Try Now
 </button>
 </div>
 <a href="https://unstuckstudy.com/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="video-gen">
+<img src="https://websnowi.github.io/websnowi/media/123apps.com-ws.png" alt="123apps.com" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">123apps.com</h3>
+<span class="px-3 py-1 text-xs font-medium bg-blue-200 text-blue-500 rounded-full">Video Gen</span>
+</div>
+<p class="text-gray-600 mb-4">All-In-One Video Toolkit — Edit, Record, Merge, Trim, Add Audio, Text, Images, and More.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://123apps.com/" target="_blank">
 <button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
 </a>
 </div>
@@ -2894,33 +3119,112 @@ Try Now
 </div>
 </div>
 
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="free" data-category="image-gen">
+<img src="https://websnowi.github.io/websnowi/media/recraft.ai-ws.png" alt="recraft.ai" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">recraft.ai</h3>
+<span class="px-3 py-1 text-xs font-medium bg-green-100 text-green-800 rounded-full">Image Gen</span>
+</div>
+<p class="text-gray-600 mb-4">Create Stunning Ai Images Online — Free Text-To-Image Generator at Your Fingertips.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://www.recraft.ai/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
+
+<div class="tool-card bg-white rounded-xl border hover:shadow-lg transition-shadow overflow-hidden" data-price="paid" data-category="animation">
+<img src="https://websnowi.github.io/websnowi/media/lottiefiles.com-ws.png" alt="lottiefiles.com" class="w-full h-48 object-cover">
+<div class="p-6">
+<div class="flex items-center justify-between mb-4">
+<h3 class="text-xl font-semibold text-gray-900">lottiefiles.com</h3>
+<span class="px-3 py-1 text-xs font-medium bg-yellow-900 text-yellow-100 rounded-full">Animation</span>
+</div>
+<p class="text-gray-600 mb-4">A Powerful Web Tool for Creating Lightweight, Customizable Lottie Animations for Web, Apps, and Social.</p>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<button onclick="handleFavorite(this)" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-heart-line"></i>
+</button>
+<button onclick="copyLink(this)" class="relative w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+<i class="ri-share-line"></i>
+<span class="copy-tooltip absolute top-8 left-3/4 transform -translate-x-1/2 bg-gray-800 text-white text-xs rounded px-2 py-1 opacity-0 invisible transition-all duration-300">Copied!</span>
+</button>
+</div>
+<a href="https://lottiefiles.com/" target="_blank">
+<button class="!rounded-button bg-primary text-white px-4 py-2 text-sm font-medium hover:bg-primary/90 transition-colors cursor-pointer whitespace-nowrap">Try Now</button>
+</a>
+</div>
+</div>
+</div>
 
 
 
 
 </div>
+
 <script>
-// Prevent "Try Now" from triggering card click
-document.querySelectorAll('.tool-card a button').forEach(button => {
-button.addEventListener('click', (e) => {
-e.stopPropagation();
-});
+    // Count the number of tool cards
+    const toolCards = document.querySelectorAll('.tool-card');
+    const totalCount = toolCards.length;
+    const toolCountElement = document.getElementById('tool-count');
+
+    let currentCount = 0;
+
+    // Function to animate the counting
+    function countUp() {
+      if (currentCount < totalCount) {
+        currentCount++;
+        toolCountElement.textContent = `${currentCount}`;
+        setTimeout(countUp, 50); // Adjust the speed of the counting by modifying this timeout
+      }
+    }
+
+    // Start the count-up animation
+    countUp();
+  </script>
+
+<script>
+// Stop card filtering when clicking interactive buttons inside the card
+const ignoreClicksOn = [
+  '.tool-card a button',       // Try Now
+  '.tool-card button[onclick]', // Favorite, Share
+];
+
+ignoreClicksOn.forEach(selector => {
+  document.querySelectorAll(selector).forEach(button => {
+    button.addEventListener('click', (e) => {
+      e.stopPropagation();
+    });
+  });
 });
 
-// Card click filtering logic
+// Main card click handler for filtering
 document.querySelectorAll('.tool-card').forEach(card => {
-card.addEventListener('click', (e) => {
-const selectedCategory = card.getAttribute('data-category');
-document.querySelectorAll('.tool-card').forEach(item => {
-if (item.getAttribute('data-category') === selectedCategory) {
-item.style.display = 'block';
-} else {
-item.style.display = 'none';
-}
-});
-});
+  card.addEventListener('click', () => {
+    const selectedCategory = card.getAttribute('data-category');
+    document.querySelectorAll('.tool-card').forEach(item => {
+      if (item.getAttribute('data-category') === selectedCategory) {
+        item.style.display = 'block';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+  });
 });
 </script>
+
 </section>
 <footer class="bg-gray-900 text-white py-12">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
